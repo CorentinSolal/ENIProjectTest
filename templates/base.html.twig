@@ -19,22 +19,36 @@
     <header>
         <nav class="uk-navbar-container uk-margin" uk-navbar>
             <div class="uk-navbar-center">
-                <div class="uk-navbar-center-left">
-                    <ul class="uk-navbar-nav">
-                        <li><a href="#">Activities</a></li>
-                    </ul>
-                </div>
                 <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-                <div class="uk-navbar-center-right">
-                    <ul class="uk-navbar-nav">
-                        <li><a href="#">Login/Register</a></li>
+                <button class="uk-button uk-button-default" type="button">Hover</button>
+                <div uk-dropdown>
+                    <ul class="uk-nav uk-dropdown-nav">
+                        <li class="uk-active"><a href="#">Villes</a></li>
+                        <li><a href="#">Campus</a></li>
+                        <li><a href="#">Mon profil</a></li>
+                        <li><a href="#">Se déconnecter</a></li>
                     </ul>
                 </div>
-
             </div>
         </nav>
     </header>
     <main>
+        <div class="uk-flex uk-flex-right">
+            <div>Date du jour :
+                <script>
+                    date = new Date().toLocaleDateString();
+                    document.write(date);
+                </script>
+            </div>
+        </div>
+        <div class="uk-flex uk-flex-left ">
+        <div class="uk-text-bold">
+            <p>Filtrer les sorties</p>
+        </div>
+        <div>
+
+        </div>
+        </div>
         {% block body %}{% endblock %}
     </main>
     <footer class="uk-background-muted">
