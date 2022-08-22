@@ -6,11 +6,13 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
  */
-class Participant
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
     /**
      * @ORM\Id
@@ -18,6 +20,22 @@ class Participant
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $mail;
+
+    /**
+     * @ORM\Column(type="json")
+     */
+    private $roles = [];
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,16 +53,6 @@ class Participant
     private $telephone;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $mail;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $motPasse;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $administrateur;
@@ -55,33 +63,114 @@ class Participant
     private $actif;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participantList")
-     */
-    private $sortieList;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="participantList")
      * @ORM\JoinColumn(nullable=false)
      */
     private $campus;
 
-
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisteur")
      */
     private $sortieOrganisees;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participantList")
+     */
+    private $sortieParticipants;
+
     public function __construct()
     {
-        $this->sortieList = new ArrayCollection();
-        $this->organisateur = new ArrayCollection();
-        $this->SortieList = new ArrayCollection();
         $this->sortieOrganisees = new ArrayCollection();
+        $this->sortieParticipants = new ArrayCollection();
     }
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getMail(): ?string
+    {
+        return $this->mail;
+    }
+
+    public function setMail(string $mail): self
+    {
+        $this->mail = $mail;
+
+        return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->mail;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return (string) $this->mail;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): self
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Returning a salt is only needed, if you are not using a modern
+     * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
+     *
+     * @see UserInterface
+     */
+    public function getSalt(): ?string
+    {
+        return null;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials()
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 
     public function getNom(): ?string
@@ -120,30 +209,6 @@ class Participant
         return $this;
     }
 
-    public function getMail(): ?string
-    {
-        return $this->mail;
-    }
-
-    public function setMail(string $mail): self
-    {
-        $this->mail = $mail;
-
-        return $this;
-    }
-
-    public function getMotPasse(): ?string
-    {
-        return $this->motPasse;
-    }
-
-    public function setMotPasse(string $motPasse): self
-    {
-        $this->motPasse = $motPasse;
-
-        return $this;
-    }
-
     public function isAdministrateur(): ?bool
     {
         return $this->administrateur;
@@ -168,30 +233,6 @@ class Participant
         return $this;
     }
 
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getSortieList(): Collection
-    {
-        return $this->sortieList;
-    }
-
-    public function addSortieList(Sortie $sortieList): self
-    {
-        if (!$this->sortieList->contains($sortieList)) {
-            $this->sortieList[] = $sortieList;
-        }
-
-        return $this;
-    }
-
-    public function removeSortieList(Sortie $sortieList): self
-    {
-        $this->sortieList->removeElement($sortieList);
-
-        return $this;
-    }
-
     public function getCampus(): ?Campus
     {
         return $this->campus;
@@ -200,36 +241,6 @@ class Participant
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getOrganisateur(): Collection
-    {
-        return $this->organisateur;
-    }
-
-    public function addOrganisateur(Sortie $organisateur): self
-    {
-        if (!$this->organisateur->contains($organisateur)) {
-            $this->organisateur[] = $organisateur;
-            $organisateur->setParticipant($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrganisateur(Sortie $organisateur): self
-    {
-        if ($this->organisateur->removeElement($organisateur)) {
-            // set the owning side to null (unless already changed)
-            if ($organisateur->getParticipant() === $this) {
-                $organisateur->setParticipant(null);
-            }
-        }
 
         return $this;
     }
@@ -246,7 +257,7 @@ class Participant
     {
         if (!$this->sortieOrganisees->contains($sortieOrganisee)) {
             $this->sortieOrganisees[] = $sortieOrganisee;
-            $sortieOrganisee->setOrganisateur($this);
+            $sortieOrganisee->setOrganisteur($this);
         }
 
         return $this;
@@ -256,10 +267,34 @@ class Participant
     {
         if ($this->sortieOrganisees->removeElement($sortieOrganisee)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganisee->getOrganisateur() === $this) {
-                $sortieOrganisee->setOrganisateur(null);
+            if ($sortieOrganisee->getOrganisteur() === $this) {
+                $sortieOrganisee->setOrganisteur(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieParticipants(): Collection
+    {
+        return $this->sortieParticipants;
+    }
+
+    public function addSortieParticipant(Sortie $sortieParticipant): self
+    {
+        if (!$this->sortieParticipants->contains($sortieParticipant)) {
+            $this->sortieParticipants[] = $sortieParticipant;
+        }
+
+        return $this;
+    }
+
+    public function removeSortieParticipant(Sortie $sortieParticipant): self
+    {
+        $this->sortieParticipants->removeElement($sortieParticipant);
 
         return $this;
     }

@@ -24,20 +24,21 @@ class Campus
      */
     private $nom;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus")
-     */
-    private $participantList;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="campus")
      */
     private $sortieList;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Participant::class, mappedBy="campus")
+     */
+    private $participantList;
+
     public function __construct()
     {
-        $this->participantList = new ArrayCollection();
         $this->sortieList = new ArrayCollection();
+        $this->participantList = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -53,6 +54,37 @@ class Campus
     public function setNom(string $nom): self
     {
         $this->nom = $nom;
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieList(): Collection
+    {
+        return $this->sortieList;
+    }
+
+    public function addSortieList(Sortie $sortieList): self
+    {
+        if (!$this->sortieList->contains($sortieList)) {
+            $this->sortieList[] = $sortieList;
+            $sortieList->setCampus($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieList(Sortie $sortieList): self
+    {
+        if ($this->sortieList->removeElement($sortieList)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieList->getCampus() === $this) {
+                $sortieList->setCampus(null);
+            }
+        }
 
         return $this;
     }
@@ -81,36 +113,6 @@ class Campus
             // set the owning side to null (unless already changed)
             if ($participantList->getCampus() === $this) {
                 $participantList->setCampus(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Sortie>
-     */
-    public function getSortieList(): Collection
-    {
-        return $this->sortieList;
-    }
-
-    public function addSortieList(Sortie $sortieList): self
-    {
-        if (!$this->sortieList->contains($sortieList)) {
-            $this->sortieList[] = $sortieList;
-            $sortieList->setCampus($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSortieList(Sortie $sortieList): self
-    {
-        if ($this->sortieList->removeElement($sortieList)) {
-            // set the owning side to null (unless already changed)
-            if ($sortieList->getCampus() === $this) {
-                $sortieList->setCampus(null);
             }
         }
 
