@@ -1,0 +1,8 @@
+<div class="uk-flex uk-flex-right">
+    <div>Date du jour :
+        <script>
+            date = new Date().toLocaleDateString();
+            document.write(date);
+        </script>
+    </div>
+</div>

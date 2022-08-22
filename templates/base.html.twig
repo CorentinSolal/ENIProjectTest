@@ -1,62 +1,46 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="stylesheet" href="{{ asset('assets/css/uikit.css') }}">
-        <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-        <script src="{{ asset('assets/js/uikit.js') }}" defer></script>
-        {# Run `composer require symfony/webpack-encore-bundle` to start using Symfony UX #}
-        {% block stylesheets %}
-            {{ encore_entry_link_tags('app') }}
-        {% endblock %}
-
-        {% block javascripts %}
-            {{ encore_entry_script_tags('app') }}
-        {% endblock %}
-    </head>
-    <body>
-    <header>
-        <nav class="uk-navbar-container uk-margin" uk-navbar>
-            <div class="uk-navbar-center">
-                <div class="uk-navbar-center-left">
-                    <ul class="uk-navbar-nav">
-                        <li><a href="{{ path('app_sortie_index') }}">Activities</a></li>
-                    </ul>
-                </div>
-                <a class="uk-navbar-item uk-logo" href="#">Logo</a>
-                <button class="uk-button uk-button-default" type="button">Hover</button>
-                <div uk-dropdown>
-                    <ul class="uk-nav uk-dropdown-nav">
-                        <li class="uk-active"><a href="#">Villes</a></li>
-                        <li><a href="#">Campus</a></li>
-                        <li><a href="#">Mon profil</a></li>
-                        <li><a href="#">Se déconnecter</a></li>
-                    </ul>
-                </div>
-
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="stylesheet" href="{{ asset('assets/css/uikit.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <script src="{{ asset('assets/js/uikit.js') }}" defer></script>
+</head>
+<body>
+<header>
+    <nav class="uk-navbar-container uk-margin" uk-navbar>
+        <div class="uk-navbar-center">
+            <div class="uk-navbar-center-left">
+                <ul class="uk-navbar-nav">
+                    <li><a href="#">Activities</a></li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <main>
-        <div class="uk-flex uk-flex-right">
-            <div>Date du jour :
-                <script>
-                    date = new Date().toLocaleDateString();
-                    document.write(date);
-                </script>
+            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">Logo</a>
+            <div class="uk-navbar-center-right">
+                <ul class="uk-navbar-nav">
+                    <li>
+                        <a href="#">My account</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li><a href="#">Ville</a></li>
+                                <li><a href="#">Campus</a></li>
+                                <li><a href="#">Mon profile</a></li>
+                                <li><a href="#">Se déconnecter</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li><a href="#">Login/Register</a></li>
+                </ul>
             </div>
         </div>
-        <div class="uk-flex uk-flex-left ">
-        <div class="uk-text-bold">
-            <p>Filtrer les sorties</p>
-        </div>
-        <div>
-
-        </div>
-        </div>
+    </nav>
+</header>
+<main>
     <main class="uk-container">
+
         {% block body %}{% endblock %}
+
     </main>
     <footer class="uk-background-secondary uk-light uk-padding uk-panel">
         <div class="uk-column-1-3">
@@ -65,5 +49,5 @@
             <div><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley" target="_blank">Cliquez moi</a></div>
         </div>
     </footer>
-    </body>
+</body>
 </html>

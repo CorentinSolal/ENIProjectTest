@@ -118,4 +118,10 @@ class Campus
 
         return $this;
     }
+
+    public function __toString()
+    {
+        // TODO: Implement __toString() method.
+        return $this->getNom();
+    }
 }
