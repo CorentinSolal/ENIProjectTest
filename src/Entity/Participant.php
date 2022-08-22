@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\ParticipantRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -51,6 +53,40 @@ class Participant
      * @ORM\Column(type="boolean")
      */
     private $actif;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Sortie::class, inversedBy="participantList")
+     */
+    private $sortieList;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="participantList")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $campus;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="participant")
+     */
+    private $organisteur;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
+     */
+    private $SortieList;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisteur")
+     */
+    private $sortieOrganisees;
+
+    public function __construct()
+    {
+        $this->sortieList = new ArrayCollection();
+        $this->organisteur = new ArrayCollection();
+        $this->SortieList = new ArrayCollection();
+        $this->sortieOrganisees = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -137,6 +173,102 @@ class Participant
     public function setActif(bool $actif): self
     {
         $this->actif = $actif;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieList(): Collection
+    {
+        return $this->sortieList;
+    }
+
+    public function addSortieList(Sortie $sortieList): self
+    {
+        if (!$this->sortieList->contains($sortieList)) {
+            $this->sortieList[] = $sortieList;
+        }
+
+        return $this;
+    }
+
+    public function removeSortieList(Sortie $sortieList): self
+    {
+        $this->sortieList->removeElement($sortieList);
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getOrganisteur(): Collection
+    {
+        return $this->organisteur;
+    }
+
+    public function addOrganisteur(Sortie $organisteur): self
+    {
+        if (!$this->organisteur->contains($organisteur)) {
+            $this->organisteur[] = $organisteur;
+            $organisteur->setParticipant($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrganisteur(Sortie $organisteur): self
+    {
+        if ($this->organisteur->removeElement($organisteur)) {
+            // set the owning side to null (unless already changed)
+            if ($organisteur->getParticipant() === $this) {
+                $organisteur->setParticipant(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Sortie>
+     */
+    public function getSortieOrganisees(): Collection
+    {
+        return $this->sortieOrganisees;
+    }
+
+    public function addSortieOrganisee(Sortie $sortieOrganisee): self
+    {
+        if (!$this->sortieOrganisees->contains($sortieOrganisee)) {
+            $this->sortieOrganisees[] = $sortieOrganisee;
+            $sortieOrganisee->setOrganisteur($this);
+        }
+
+        return $this;
+    }
+
+    public function removeSortieOrganisee(Sortie $sortieOrganisee): self
+    {
+        if ($this->sortieOrganisees->removeElement($sortieOrganisee)) {
+            // set the owning side to null (unless already changed)
+            if ($sortieOrganisee->getOrganisteur() === $this) {
+                $sortieOrganisee->setOrganisteur(null);
+            }
+        }
 
         return $this;
     }

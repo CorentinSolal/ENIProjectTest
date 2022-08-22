@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -48,9 +50,48 @@ class Sortie
     private $infosSortie;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sortieList")
+     */
+    private $participantList;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Campus::class, inversedBy="sortieList")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $campus;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Lieu::class, inversedBy="sortieList")
+     */
+    private $lieu;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Etat::class, inversedBy="sortieList")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $etat;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="organisteur")
+     */
+    private $participant;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="SortieList")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisateur;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortieOrganisees")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $organisteur;
+
+    public function __construct()
+    {
+        $this->participantList = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -129,14 +170,101 @@ class Sortie
         return $this;
     }
 
-    public function getEtat(): ?string
+    /**
+     * @return Collection<int, Participant>
+     */
+    public function getParticipantList(): Collection
+    {
+        return $this->participantList;
+    }
+
+    public function addParticipantList(Participant $participantList): self
+    {
+        if (!$this->participantList->contains($participantList)) {
+            $this->participantList[] = $participantList;
+            $participantList->addSortieList($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParticipantList(Participant $participantList): self
+    {
+        if ($this->participantList->removeElement($participantList)) {
+            $participantList->removeSortieList($this);
+        }
+
+        return $this;
+    }
+
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getLieu(): ?Lieu
+    {
+        return $this->lieu;
+    }
+
+    public function setLieu(?Lieu $lieu): self
+    {
+        $this->lieu = $lieu;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
     {
         return $this->etat;
     }
 
-    public function setEtat(string $etat): self
+    public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    public function getParticipant(): ?Participant
+    {
+        return $this->participant;
+    }
+
+    public function setParticipant(?Participant $participant): self
+    {
+        $this->participant = $participant;
+
+        return $this;
+    }
+
+    public function getOrganisateur(): ?Participant
+    {
+        return $this->organisateur;
+    }
+
+    public function setOrganisateur(?Participant $organisateur): self
+    {
+        $this->organisateur = $organisateur;
+
+        return $this;
+    }
+
+    public function getOrganisteur(): ?Participant
+    {
+        return $this->organisteur;
+    }
+
+    public function setOrganisteur(?Participant $organisteur): self
+    {
+        $this->organisteur = $organisteur;
 
         return $this;
     }
