@@ -71,22 +71,12 @@ class Sortie
      */
     private $etat;
 
-    /**
-     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="organisteur")
-     */
-    private $participant;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="SortieList")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $organisateur;
 
     /**
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortieOrganisees")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $organisteur;
+    private $organisateur;
 
     public function __construct()
     {
@@ -253,18 +243,6 @@ class Sortie
     public function setOrganisateur(?Participant $organisateur): self
     {
         $this->organisateur = $organisateur;
-
-        return $this;
-    }
-
-    public function getOrganisteur(): ?Participant
-    {
-        return $this->organisteur;
-    }
-
-    public function setOrganisteur(?Participant $organisteur): self
-    {
-        $this->organisteur = $organisteur;
 
         return $this;
     }

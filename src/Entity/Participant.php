@@ -65,25 +65,16 @@ class Participant
      */
     private $campus;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="participant")
-     */
-    private $organisteur;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
-     */
-    private $SortieList;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisteur")
      */
     private $sortieOrganisees;
 
     public function __construct()
     {
         $this->sortieList = new ArrayCollection();
-        $this->organisteur = new ArrayCollection();
+        $this->organisateur = new ArrayCollection();
         $this->SortieList = new ArrayCollection();
         $this->sortieOrganisees = new ArrayCollection();
     }
@@ -216,27 +207,27 @@ class Participant
     /**
      * @return Collection<int, Sortie>
      */
-    public function getOrganisteur(): Collection
+    public function getOrganisateur(): Collection
     {
-        return $this->organisteur;
+        return $this->organisateur;
     }
 
-    public function addOrganisteur(Sortie $organisteur): self
+    public function addOrganisateur(Sortie $organisateur): self
     {
-        if (!$this->organisteur->contains($organisteur)) {
-            $this->organisteur[] = $organisteur;
-            $organisteur->setParticipant($this);
+        if (!$this->organisateur->contains($organisateur)) {
+            $this->organisateur[] = $organisateur;
+            $organisateur->setParticipant($this);
         }
 
         return $this;
     }
 
-    public function removeOrganisteur(Sortie $organisteur): self
+    public function removeOrganisateur(Sortie $organisateur): self
     {
-        if ($this->organisteur->removeElement($organisteur)) {
+        if ($this->organisateur->removeElement($organisateur)) {
             // set the owning side to null (unless already changed)
-            if ($organisteur->getParticipant() === $this) {
-                $organisteur->setParticipant(null);
+            if ($organisateur->getParticipant() === $this) {
+                $organisateur->setParticipant(null);
             }
         }
 
@@ -255,7 +246,7 @@ class Participant
     {
         if (!$this->sortieOrganisees->contains($sortieOrganisee)) {
             $this->sortieOrganisees[] = $sortieOrganisee;
-            $sortieOrganisee->setOrganisteur($this);
+            $sortieOrganisee->setOrganisateur($this);
         }
 
         return $this;
@@ -265,8 +256,8 @@ class Participant
     {
         if ($this->sortieOrganisees->removeElement($sortieOrganisee)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganisee->getOrganisteur() === $this) {
-                $sortieOrganisee->setOrganisteur(null);
+            if ($sortieOrganisee->getOrganisateur() === $this) {
+                $sortieOrganisee->setOrganisateur(null);
             }
         }
 
