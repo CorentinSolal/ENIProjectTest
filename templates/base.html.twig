@@ -16,12 +16,12 @@
         {% endblock %}
     </head>
     <body>
-    <header>
+    <header class="">
         <nav class="uk-navbar-container uk-margin" uk-navbar>
             <div class="uk-navbar-center">
                 <div class="uk-navbar-center-left">
                     <ul class="uk-navbar-nav">
-                        <li><a href="#">Activities</a></li>
+                        <li><a href="{{ path('app_sortie_index') }}">Activities</a></li>
                     </ul>
                 </div>
                 <a class="uk-navbar-item uk-logo" href="#">Logo</a>
@@ -34,10 +34,10 @@
             </div>
         </nav>
     </header>
-    <main>
+    <main class="uk-container">
         {% block body %}{% endblock %}
     </main>
-    <footer class="uk-background-muted">
+    <footer class="uk-background-secondary uk-light uk-padding uk-panel">
         <div class="uk-column-1-3">
             <div>@ENIProject 2022</div>
             <div>colonne 2</div>
