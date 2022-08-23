@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
@@ -33,10 +34,15 @@ class SortieController extends AbstractController
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
+        $session = $request->getSession();
+        $id = $session->get('identif');
+        $repoParticipant = $this->getDoctrine()->getRepository(Participant ::class);
+        $organisateur = $repoParticipant->find($id);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $sortie->setOrganisateur($organisateur);
             $sortieRepository->add($sortie, true);
-            $sortie->setOrganisteur('');
+
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }

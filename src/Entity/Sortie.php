@@ -70,7 +70,7 @@ class Sortie
      * @ORM\ManyToOne(targetEntity=Participant::class, inversedBy="sortieOrganisees")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $organisteur;
+    private $organisateur;
 
     /**
      * @ORM\ManyToMany(targetEntity=Participant::class, mappedBy="sortieParticipants")
@@ -197,14 +197,14 @@ class Sortie
         return $this;
     }
 
-    public function getOrganisteur(): ?Participant
+    public function getOrganisateur(): ?Participant
     {
-        return $this->organisteur;
+        return $this->organisateur;
     }
 
-    public function setOrganisteur(?Participant $organisteur): self
+    public function setOrganisateur(?Participant $organisateur): self
     {
-        $this->organisteur = $organisteur;
+        $this->organisateur = $organisateur;
 
         return $this;
     }

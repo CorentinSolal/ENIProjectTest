@@ -71,7 +71,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     private $campus;
 
     /**
-     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisteur")
+     * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
      */
     private $sortieOrganisees;
 
@@ -261,7 +261,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->sortieOrganisees->contains($sortieOrganisee)) {
             $this->sortieOrganisees[] = $sortieOrganisee;
-            $sortieOrganisee->setOrganisteur($this);
+            $sortieOrganisee->setOrganisateur($this);
         }
 
         return $this;
@@ -271,8 +271,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->sortieOrganisees->removeElement($sortieOrganisee)) {
             // set the owning side to null (unless already changed)
-            if ($sortieOrganisee->getOrganisteur() === $this) {
-                $sortieOrganisee->setOrganisteur(null);
+            if ($sortieOrganisee->getOrganisateur() === $this) {
+                $sortieOrganisee->setOrganisateur(null);
             }
         }
 
