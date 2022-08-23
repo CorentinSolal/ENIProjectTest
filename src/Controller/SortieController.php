@@ -36,6 +36,7 @@ class SortieController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sortieRepository->add($sortie, true);
+            $sortie->setOrganisteur('');
 
             return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -5,12 +5,15 @@ namespace App\Controller;
 use App\Entity\Participant;
 use App\Form\ParticipantType;
 use App\Repository\ParticipantRepository;
+use App\Security\AppAuthAuthenticator;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 
 /**
@@ -29,32 +32,6 @@ class ParticipantController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="app_participant_new", methods={"GET", "POST"})
-     */
-    public function new(Request $request, ParticipantRepository $participantRepository, UserPasswordHasherInterface $passwordHasher): Response
-    {
-        $participant = new Participant();
-        $form = $this->createForm(ParticipantType::class, $participant);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $hashedPassword = $passwordHasher->hashPassword(
-                $participant,
-                $participant->getPassword()
-            );
-            $participant->setPassword($hashedPassword);
-            $participantRepository->add($participant, true);
-
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->renderForm('participant/new.html.twig', [
-            'participant' => $participant,
-            'form' => $form,
-        ]);
-    }
-
-    /**
      * @Route("/{id}", name="app_participant_show", methods={"GET"})
      */
     public function show(Participant $participant): Response
@@ -67,13 +44,20 @@ class ParticipantController extends AbstractController
     /**
      * @Route("/{id}/edit", name="app_participant_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Participant $participant, ParticipantRepository $participantRepository): Response
+    public function edit(Request $request, Participant $participant, ParticipantRepository $participantRepository, UserPasswordHasherInterface $userPasswordHasher, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ParticipantType::class, $participant);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $participant->setPassword(
+                $userPasswordHasher->hashPassword(
+                    $participant,
+                    $form->get('password')->getData()
+                )
+            );
             $participantRepository->add($participant, true);
+
 
             return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
         }

@@ -1,9 +1,8 @@
 SCRIPTS A EXECUTER
 
-php bin/console make:entity etc...  // Cr�er les classes
+php bin/console make:entity etc...  // Creer les classes
 
-php bin/console make:migration // Cr�er un fichier de cr�ation de BDD
-
+php bin/console make:migration // Creer un fichier de creation de BDD
 php bin/console doctrine:migration:migrate // Fais la MAJ de BDD
 
 php bin/console d:s:u --force // Pareil mais en mieux
