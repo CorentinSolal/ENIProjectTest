@@ -13,25 +13,35 @@
         <div class="uk-navbar-center">
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
-                    <li><a href="{{ path('app_sortie_index') }}">Activities</a></li>
-                </ul>
-            </div>
-
-            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}"><img src="{{ asset('assets/images/logo.png') }}" width="100px"></a>
-            <div class="uk-navbar-center-right">
-                <ul class="uk-navbar-nav">
                     <li>
-                        <a href="#">My account</a>
+                        <a href="{{ path('app_sortie_index') }}">Activities</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="#">Ville</a></li>
                                 <li><a href="#">Campus</a></li>
-                                <li><a href="#">Mon profil</a></li>
-                                <li><a href="#">Se déconnecter</a></li>
                             </ul>
                         </div>
                     </li>
+                </ul>
+            </div>
+
+            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">Sortir.com</a>
+            <div class="uk-navbar-center-right">
+                <ul class="uk-navbar-nav">
+                    {% if app.user %}
+                    <li>
+                        <a href="#">My account</a>
+                        <div class="uk-navbar-dropdown">
+                            <ul class="uk-nav uk-navbar-dropdown-nav">
+                                <li><a href="{{ path('app_participant_show',{ 'id' :app.user.id }) }}">Mon profil</a></li>
+                                <li><a href="{{ path('app_logout') }}">Se déconnecter</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    {% endif %}
+                    {% if not app.user %}
                     <li><a href="{{ path('app_login') }}">Login/Register</a></li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
