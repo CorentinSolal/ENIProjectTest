@@ -30,7 +30,6 @@ security:
             # switch_user: true
             remember_me:
                 secret: '%kernel.secret%'
-                # ...
                 always_remember_me: true
                 path: app_remember_me
     # Easy way to control access for large sections of your site
