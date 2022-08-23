@@ -5,18 +5,19 @@
 {% block body %}
     <h1>Sortie index</h1>
 
-    <table class="table">
+    <table class="uk-table">
+        <caption>Table Caption</caption>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>DateHeureDebut</th>
-                <th>Duree</th>
-                <th>DateLimiteInscription</th>
-                <th>NbInscriptionsMax</th>
-                <th>InfosSortie</th>
-                <th>actions</th>
-            </tr>
+        <tr>
+            <th>Id</th>
+            <th>Nom</th>
+            <th>DateHeureDebut</th>
+            <th>Duree</th>
+            <th>DateLimiteInscription</th>
+            <th>NbInscriptionsMax</th>
+            <th>InfosSortie</th>
+            <th>actions</th>
+        </tr>
         </thead>
         <tbody>
         {% for sortie in sorties %}
@@ -40,6 +41,5 @@
         {% endfor %}
         </tbody>
     </table>
-
     <a href="{{ path('app_sortie_new') }}">Create new</a>
 {% endblock %}
