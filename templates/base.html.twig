@@ -17,7 +17,7 @@
                 </ul>
             </div>
 
-            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">Logo</a>
+            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}"><img src="{{ asset('assets/images/logo.png') }}" width="100px"></a>
             <div class="uk-navbar-center-right">
                 <ul class="uk-navbar-nav">
                     <li>
@@ -26,12 +26,12 @@
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="#">Ville</a></li>
                                 <li><a href="#">Campus</a></li>
-                                <li><a href="#">Mon profile</a></li>
+                                <li><a href="#">Mon profil</a></li>
                                 <li><a href="#">Se déconnecter</a></li>
                             </ul>
                         </div>
                     </li>
-                    <li><a href="#">Login/Register</a></li>
+                    <li><a href="{{ path('app_login') }}">Login/Register</a></li>
                 </ul>
             </div>
         </div>

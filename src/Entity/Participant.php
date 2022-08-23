@@ -6,11 +6,13 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
 class Participant implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -78,8 +80,10 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $sortieParticipants;
 
-    public function __construct()
+    public function __construct($administrateur=false, $actif=false)
     {
+        $this->administrateur= $administrateur;
+        $this->actif=$actif;
         $this->sortieOrganisees = new ArrayCollection();
         $this->sortieParticipants = new ArrayCollection();
     }
