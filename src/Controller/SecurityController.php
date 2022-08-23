@@ -25,13 +25,9 @@ class SecurityController extends AbstractController
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
         $session = $request->getSession();
-        $repoParticipant = $this->getDoctrine()->getRepository(Participant ::class);
-        $participant_connecté = $repoParticipant->findOneByMail($lastUsername);
-        $id = $participant_connecté->getId();
-        $session->set('identif',$id);
+        $id=$session->getId();
 
-
-        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error,'id'=>$id]);
     }
 
     /**
