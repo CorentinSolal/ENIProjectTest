@@ -8,8 +8,8 @@
     <script src="{{ asset('assets/js/uikit.js') }}" defer></script>
 </head>
 <body>
-<header>
-    <nav class="uk-navbar-container uk-margin" uk-navbar>
+<header class="">
+    <nav class="uk-navbar-container uk-margin uk-navbar-transparent" uk-navbar>
         <div class="uk-navbar-center">
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
@@ -24,13 +24,12 @@
                     </li>
                 </ul>
             </div>
-
             <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">Sortir.com</a>
             <div class="uk-navbar-center-right">
                 <ul class="uk-navbar-nav">
                     {% if app.user %}
                     <li>
-                        <a href="#">My account</a>
+                        <a href="#">Welcome {{ app.user.prenom }}</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
                                 <li><a href="{{ path('app_participant_show',{ 'id' :app.user.id }) }}">Mon profil</a></li>
