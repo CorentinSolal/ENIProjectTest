@@ -3,7 +3,7 @@
 {% block title %}Hello HomeController!{% endblock %}
 
 {%  block body %}
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin" uk-grid >
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-border-rounded" uk-grid  >
         <div class="uk-card-media-left uk-cover-container">
 
 
@@ -23,7 +23,7 @@
     {% for ville in listeCampus %}
 
         <div class="">
-            <div class="uk-card uk-card-default uk-card-body ">
+            <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
                 <h2 class="uk-card-title">{{ ville.nom }}</h2>
             </div>
         </div>
@@ -34,9 +34,9 @@
 
         <div class="uk-h3"></div>
 
-        <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slideshow="autoplay: true " >
+        <div class="uk-position-relative uk-visible-toggle uk-light " tabindex="-1 "  uk-slideshow="autoplay: true " >
 
-            <ul class="uk-slideshow-items">
+            <ul class="uk-slideshow-items uk-border-rounded">
                 <li>
                     <img src="https://www.sosa-paris.fr/wp-content/uploads/2019/11/afterwork.jpg" alt="" uk-cover>
                 </li>
