@@ -11,3 +11,9 @@ footer{
     /*height:100px;*/
     text-align: center;
 }
+.container-login{
+    display: flex;
+}
+.login-element{
+    justify-content: center;
+}
