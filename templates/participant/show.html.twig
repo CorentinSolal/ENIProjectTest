@@ -4,24 +4,24 @@
 
 {% block body %}
     <div class="container">
+        <h2 class="uk-card-title uk-margin-remove-bottom">Mon profil</h2>
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
                 <div class="uk-width-auto">
                     <img class="uk-border-circle" width="100" height="100" src="{{ asset('assets/images/default.jpg') }}" >
                 </div>
                 <div class="uk-width-expand">
-                    <h3 class="uk-card-title uk-margin-remove-bottom">Mon profil</h3>
-                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
                 </div>
             </div>
         </div>
         <div class="uk-card-body">
+
             {% if is_granted('ROLE_ADMIN') %}
-            <p>Id : {{ participant.id }}</p>
+                <p>Id : {{ participant.id }}</p>
             {% endif %}
             <p>Mail : {{ participant.mail }}</p>
             {% if is_granted('ROLE_ADMIN') %}
-            <p>Roles : {{ participant.roles ? participant.roles|json_encode : '' }}</p>
+                <p>Roles : {{ participant.roles ? participant.roles|json_encode : '' }}</p>
             {% endif %}
             <p>Nom : {{ participant.nom }}</p>
             <p>Prenom : {{ participant.prenom }}</p>
@@ -35,12 +35,12 @@
         <div class="uk-card-footer">
             <a href="#" class="uk-button uk-button-text">Read more</a>
         </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            <a href="{{ path('app_participant_index') }}" class="uk-button uk-button-text">back to list</a>
+
+            <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
+        {% endif %}
+        {{ include('participant/_delete_form.html.twig') }}
     </div>
 
-    {% if is_granted('ROLE_ADMIN') %}
-    <a href="{{ path('app_participant_index') }}">back to list</a>
-
-    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
-    {% endif %}
-    {{ include('participant/_delete_form.html.twig') }}
 {% endblock %}
