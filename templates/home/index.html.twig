@@ -17,18 +17,22 @@
             </div>
         </div>
     </div>
-
+    <div class="uk-flex-center" uk-grid>
     <h2>Accedez à votre campus</h2>
+    </div>
+    <div class="uk-flex-center" uk-grid>
     <div class="uk-flex-inline uk-child-width-1-3@m uk-grid-small uk-grid-match ">
     {% for ville in listeCampus %}
 
         <div class="">
-            <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
+            <div class="container uk-card uk-card-default  uk-card-body uk-border-rounded">
                 <h2 class="uk-card-title">{{ ville.nom }}</h2>
             </div>
         </div>
     {% endfor %}
     </div>
+    </div>
+
 <div class="uk-child-width-1-2@m uk-flex-center" uk-grid>
     <div>
 
