@@ -48,7 +48,10 @@
 
     <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a><br>
 
-    <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}">s'ajouter à la sortie</a>
+    <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}">s'inscrire à la sortie</a>
+    {% if app.user in sortie.participantList and not app.user == sortie.organisateur %}
+        <br><a href="{{ path('app_sortie_suppr', {'id': sortie.id}) }}">se désinscrire de la sortie</a>
+    {% endif %}
 
     {{ include('sortie/_delete_form.html.twig') }}
 {% endblock %}
