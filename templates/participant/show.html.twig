@@ -3,54 +3,44 @@
 {% block title %}Participant{% endblock %}
 
 {% block body %}
-    <h1>Participant</h1>
+    <div class="uk-card uk-card-secondary uk-width-1-1@m">
+        <div class="uk-card-header">
+            <div class="uk-grid-small uk-flex-middle" uk-grid>
+                <div class="uk-width-auto">
+                    <img class="uk-border-circle" width="100" height="100" src="{{ asset('assets/images/default.jpg') }}" >
+                </div>
+                <div class="uk-width-expand">
+                    <h3 class="uk-card-title uk-margin-remove-bottom">Mon profil</h3>
+                    <p class="uk-text-meta uk-margin-remove-top"><time datetime="2016-04-01T19:00">April 01, 2016</time></p>
+                </div>
+            </div>
+        </div>
+        <div class="uk-card-body">
+            {% if is_granted('ROLE_ADMIN') %}
+            <p>Id : {{ participant.id }}</p>
+            {% endif %}
+            <p>Mail : {{ participant.mail }}</p>
+            {% if is_granted('ROLE_ADMIN') %}
+            <p>Roles : {{ participant.roles ? participant.roles|json_encode : '' }}</p>
+            {% endif %}
+            <p>Nom : {{ participant.nom }}</p>
+            <p>Prenom : {{ participant.prenom }}</p>
+            <p>Telephone : {{ participant.telephone }}</p>
+            {% if is_granted('ROLE_ADMIN') %}
+                <p>Administrateur : {{ participant.administrateur ? 'Yes' : 'No' }}</p>
+                <p>Actif : {{ participant.actif ? 'Yes' : 'No' }}</p>
+            {% endif %}
 
-    <table class="table">
-        <tbody>
-            {% if is_granted('ROLE_ADMIN') %}
-                <tr>
-                    <th>Id</th>
-                    <td>{{ participant.id }}</td>
-                </tr>
-            {% endif %}
-            <tr>
-                <th>Mail</th>
-                <td>{{ participant.mail }}</td>
-            </tr>
-            {% if is_granted('ROLE_ADMIN') %}
-                <tr>
-                    <th>Roles</th>
-                    <td>{{ participant.roles ? participant.roles|json_encode : '' }}</td>
-                </tr>
-            {% endif %}
-            <tr>
-                <th>Nom</th>
-                <td>{{ participant.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ participant.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Telephone</th>
-                <td>{{ participant.telephone }}</td>
-            </tr>
-            {% if is_granted('ROLE_ADMIN') %}
-                <tr>
-                    <th>Administrateur</th>
-                    <td>{{ participant.administrateur ? 'Yes' : 'No' }}</td>
-                </tr>
-            {% endif %}
-            <tr>
-                <th>Actif</th>
-                <td>{{ participant.actif ? 'Yes' : 'No' }}</td>
-            </tr>
-        </tbody>
-    </table>
+        </div>
+        <div class="uk-card-footer">
+            <a href="#" class="uk-button uk-button-text">Read more</a>
+        </div>
+    </div>
 
+    {% if is_granted('ROLE_ADMIN') %}
     <a href="{{ path('app_participant_index') }}">back to list</a>
 
     <a href="{{ path('app_participant_edit', {'id': participant.id}) }}">edit</a>
-
+    {% endif %}
     {{ include('participant/_delete_form.html.twig') }}
 {% endblock %}
