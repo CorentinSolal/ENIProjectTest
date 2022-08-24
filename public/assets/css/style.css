@@ -5,6 +5,7 @@
     -o-background-size: cover;
     background-size: cover;
     height: 100vh;
+    color: black;
 }
 
 footer{
@@ -13,7 +14,7 @@ footer{
 .container {
     background: rgba(255,255,255,0.3);
     padding: 3em;
-    height: 400px;
+    height: 480px;
     border-radius: 20px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-top: 1px solid rgba(255,255,255,0.3);
