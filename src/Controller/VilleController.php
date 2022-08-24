@@ -29,13 +29,13 @@ class VilleController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //dd($form->getViewData()->getNom());
 
-            return $this->renderForm('campus/index.html.twig', [
-                'campuses' => $villeRepository->findBySubString($form->getViewData()->getNom()),
+            return $this->renderForm('ville/index.html.twig', [
+                'villes' => $villeRepository->findBySubString($form->getViewData()->getNom()),
                 'form' => $form,
             ]);
         }
-        return $this->renderForm('campus/index.html.twig', [
-            'campuses' => $villeRepository->findAll(),
+        return $this->renderForm('ville/index.html.twig', [
+            'villes' => $villeRepository->findAll(),
             'form' => $form,
         ]);
     }
