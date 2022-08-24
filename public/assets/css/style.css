@@ -4,7 +4,7 @@
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 100vh;
+    height: auto;
     color: black;
     z-index: 9999;
 }
@@ -16,6 +16,7 @@ footer{
     background: rgba(255,255,255,0.3);
     padding: 3em;
     height: auto;
+    width: auto;
     border-radius: 20px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-top: 1px solid rgba(255,255,255,0.3);
