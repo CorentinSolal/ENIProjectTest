@@ -6,6 +6,7 @@ use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\SortieType;
 use App\Repository\SortieRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,18 +30,19 @@ class SortieController extends AbstractController
     /**
      * @Route("/new", name="app_sortie_new", methods={"GET", "POST"})
      */
-    public function new(Request $request, SortieRepository $sortieRepository): Response
+    public function new(Request $request, SortieRepository $sortieRepository,ManagerRegistry $doctrine): Response
     {
         $sortie = new Sortie();
         $form = $this->createForm(SortieType::class, $sortie);
         $form->handleRequest($request);
         $session = $request->getSession();
-        $id = $session->get('identif');
-        $repoParticipant = $this->getDoctrine()->getRepository(Participant ::class);
+        $id = $session->getId();
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
         $organisateur = $repoParticipant->find($id);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $sortie->setOrganisateur($organisateur);
+            $sortie->addParticipantList($organisateur);
             $sortieRepository->add($sortie, true);
 
 
@@ -54,13 +56,33 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="app_sortie_show", methods={"GET"})
+     * @Route("/show/{id}", name="app_sortie_show", methods={"GET"})
      */
     public function show(Sortie $sortie): Response
     {
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
         ]);
+    }
+
+    /**
+     * @Route("/add/{id}", name="app_sortie_ajout", methods={"GET", "POST"})
+     */
+    public function ajout(Request $request, SortieRepository $sortieRepository,ManagerRegistry $doctrine, Sortie $sortie): Response
+    {
+        $id =$this->getUser()->getUserIdentifier();
+        //$session = $request->getSession();
+        //$id = $session->getId();
+        //dd($id);
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
+        $nouvParticipant = $repoParticipant->findOneBy(['mail' => $id ]);
+
+        $sortie->addParticipantList($nouvParticipant);
+        $sortieRepository->add($sortie, true);
+        return $this->render('sortie/show.html.twig', [
+            'sortie' => $sortie,
+        ]);
+
     }
 
     /**
