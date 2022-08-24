@@ -13,7 +13,9 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+        $repo = $em->getRepository('App\Entity\Campus')->findAll();
+        return $this->render('home/index.html.twig', ['listeCampus' => $repo]);
     }
     /**
      * @Route("/home", name="app_home_bis")
