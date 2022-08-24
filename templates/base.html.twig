@@ -13,7 +13,7 @@
         <div class="uk-navbar-center">
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
-                    <li>
+                    <li class="uk-active">
                         <a href="{{ path('app_sortie_index') }}" class="uk-active">Activities</a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -28,7 +28,7 @@
             <div class="uk-navbar-center-right">
                 <ul class="uk-navbar-nav">
                     {% if app.user %}
-                        <li>
+                        <li class="uk-active">
                             <a href="#">Welcome {{ app.user.prenom }}</a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
@@ -39,7 +39,7 @@
                         </li>
                     {% endif %}
                     {% if not app.user %}
-                        <li><a href="{{ path('app_login') }}">Login/Register</a></li>
+                        <li class="uk-active"><a href="{{ path('app_login') }}">Login/Register</a></li>
                     {% endif %}
                 </ul>
             </div>
