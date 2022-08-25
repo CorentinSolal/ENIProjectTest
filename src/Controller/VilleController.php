@@ -26,8 +26,8 @@ class VilleController extends AbstractController
         $form = $this->createForm(VilleType::class, $ville);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            //dd($form->getViewData()->getNom());
+        if ($form->isSubmitted() ) {
+            dump($form);
 
             return $this->renderForm('ville/index.html.twig', [
                 'villes' => $villeRepository->findBySubString($form->getViewData()->getNom()),

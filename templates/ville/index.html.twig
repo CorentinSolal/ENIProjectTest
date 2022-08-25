@@ -5,7 +5,12 @@
 {% block body %}
     <h1>Ville index</h1>
 
-    {{ include('ville/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ form_start(form) }}
+    {{ form_row(form.nom) }}
+    {{ form_row(form._token) }}
+{#    <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>#}
+    <button class="btn">{{ button_label|default('Rechercher') }}</button>
+    {{ form_end(form,{render_rest: false}) }}
 
     <table class="table">
         <thead>
