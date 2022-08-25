@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LieuController!{% endblock %}
+
+{% block body %}
+    <h1>Lieu index</h1>
+
+<table class="uk-table">
+    <caption>Table des activitées</caption>
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nom</th>
+        <th>Rue</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for lieu in lieux %}
+        <tr>
+            <td>{{ lieu.id }}</td>
+            <td>{{ lieu.nom }}</td>
+            <td>{{ lieu.rue }}</td>
+            <td>{{ lieu.latitude }}</td>
+            <td>{{ lieu.longitude }}</td>
+            <td>
+                <a href="{{ path('app_lieu_show', {'id': lieu.id}) }}">show</a>
+
+
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="8">no records found</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+    <a href="{{ path('app_lieu_new') }}">Create new</a>
+{#    {{ include('lieu/_delete_form.html.twig') }}#}
+{% endblock %}
