@@ -11,12 +11,11 @@
 }
 .container {
     background: rgba(255,255,255,0.3);
-    margin: 0;
+    margin: 1em;
     /*margin-top: 1em;*/
     /*margin-bottom: 1em;*/
-    padding: 1em;
+    padding: 2em;
     height: auto;
-    /*min-width: 80%;*/
     border-radius: 20px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-top: 1px solid rgba(255,255,255,0.3);
@@ -238,6 +237,7 @@ a:hover {color:white}
 }
 .divTableRow {
     display: table-row;
+    justify-content: space-between;
 }
 .divTableCell, .divTableHead {
     display: table-cell;
