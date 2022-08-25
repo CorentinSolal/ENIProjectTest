@@ -12,12 +12,12 @@ class SortieType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
+            ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom de la sortie']])
             ->add('dateHeureDebut')
-            ->add('duree')
+            ->add('duree',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Durée de la sortie']])
             ->add('dateLimiteInscription')
-            ->add('nbInscriptionsMax')
-            ->add('infosSortie')
+            ->add('nbInscriptionsMax',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nombre d\'inscrits max']])
+            ->add('infosSortie',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Infos suppémentaires']])
             ->add('campus')
             ->add('lieu')
             ->add('etat')
