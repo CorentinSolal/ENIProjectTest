@@ -38,8 +38,8 @@
         {% if is_granted('ROLE_ADMIN') %}
             <a href="{{ path('app_participant_index') }}" class="uk-button uk-button-text">back to list</a>
 
-            <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
         {% endif %}
+            <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
         {{ include('participant/_delete_form.html.twig') }}
     </div>
 
