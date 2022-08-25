@@ -11,9 +11,11 @@
 }
 .container {
     background: rgba(255,255,255,0.3);
-    padding: 3em;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 1em;
     height: auto;
-    width: auto;
+    min-width: 80%;
     border-radius: 20px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-top: 1px solid rgba(255,255,255,0.3);
@@ -21,11 +23,12 @@
     box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
     text-align: center;
     position: relative;
-    transition: all 0.2s ease-in-out;}
+    transition: all 0.2s ease-in-out;
+    justify-content: center;
+}
 
 .glass-panel {
     color: #fff;
-    margin: 40px auto;
     background-color: rgba(255,255,255,0.06);
     border: 1px solid rgba(255,255,255,0.1);
     width: auto;
@@ -36,7 +39,7 @@
 
 .glass-button {
     display: inline-block;
-    height: 40px;
+    min-height: 40px;
     text-decoration: none;
     border-radius: 15px;
     background-color: rgba(255,255,255,0.1);
@@ -47,6 +50,7 @@
     letter-spacing: 2px;
     cursor: pointer;
     text-transform: uppercase;
+    padding: 1em;
 }
 
 .glass-button:hover {
@@ -132,7 +136,6 @@ a:hover {color:white}
     animation-delay: 0s;
 }
 
-
 .circles li:nth-child(2){
     left: 10%;
     width: 20px;
@@ -217,4 +220,24 @@ a:hover {color:white}
         border-radius: 50%;
     }
 
+}
+
+.divTable{
+    display: table;
+    width: auto;
+}
+.divTableRow {
+    display: table-row;
+}
+.divTableCell, .divTableHead {
+    display: table-cell;
+    padding: 8px;
+}
+.divTableHeading {
+    background-color: #EEE;
+    display: table-header-group;
+    font-weight: bold;
+}
+.divTableBody {
+    display: table-row-group;
 }

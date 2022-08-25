@@ -3,34 +3,31 @@
 {% block title %}Campus index{% endblock %}
 
 {% block body %}
-    <h1>Campus index</h1>
-    {{ include('campus/_form.html.twig', {'button_label': 'Rechercher'}) }}
+    <div class="container">
+        <h1>Les Campus</h1>
+        {{ include('campus/_form.html.twig', {'button_label': 'Rechercher'}) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for campus in campuses %}
-            <tr>
-                <td>{{ campus.id }}</td>
-                <td>{{ campus.nom }}</td>
-                <td>
-                    <a href="{{ path('app_campus_show', {'id': campus.id}) }}">show</a>
-                    <a href="{{ path('app_campus_edit', {'id': campus.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_campus_new') }}">Create new</a>
+        <div class="divTable container">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableCell"><h3>ID</h3></div>
+                    <div class="divTableCell"><h3>Nom du campus</h3></div>
+                    <div class="divTableCell"><h3>Actions</h3></div>
+                </div>
+                {% for campus in campuses %}
+                    <div class="divTableRow">
+                        <div class="divTableCell">{{ campus.id }}</div>
+                        <div class="divTableCell">{{ campus.nom }}</div>
+                        <div class="divTableCell">
+                            <a href="{{ path('app_campus_show', {'id': campus.id}) }}">show</a>
+                            <a href="{{ path('app_campus_edit', {'id': campus.id}) }}">edit</a>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="divTableCell">no campus found</div>
+                {% endfor %}
+            </div>
+        </div>
+        <button class="glass-button"><a href="{{ path('app_campus_new') }}" >Create new</a></button>
+    </div>
 {% endblock %}
