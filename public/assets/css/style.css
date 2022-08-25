@@ -11,11 +11,12 @@
 }
 .container {
     background: rgba(255,255,255,0.3);
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 0;
+    /*margin-top: 1em;*/
+    /*margin-bottom: 1em;*/
     padding: 1em;
     height: auto;
-    min-width: 80%;
+    /*min-width: 80%;*/
     border-radius: 20px;
     border-left: 1px solid rgba(255,255,255,0.3);
     border-top: 1px solid rgba(255,255,255,0.3);
@@ -28,13 +29,22 @@
 }
 
 .glass-panel {
-    color: #fff;
-    background-color: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
-    width: auto;
-    border-radius: 15px;
-    padding: 32px;
+    background: rgba(255,255,255,0.3);
+    /*margin-top: 1em;*/
+    /*margin-bottom: 1em;*/
+    padding: 1em;
+    height: auto;
+    min-width: 80%;
+    border-radius: 20px;
+    border-left: 1px solid rgba(255,255,255,0.3);
+    border-top: 1px solid rgba(255,255,255,0.3);
     backdrop-filter: blur(10px);
+    box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);
+    text-align: center;
+    position: relative;
+    transition: all 0.2s ease-in-out;
+    justify-content: center;
+    margin: 0;
 }
 
 .glass-button {
@@ -232,11 +242,7 @@ a:hover {color:white}
 .divTableCell, .divTableHead {
     display: table-cell;
     padding: 8px;
-}
-.divTableHeading {
-    background-color: #EEE;
-    display: table-header-group;
-    font-weight: bold;
+    margin: 5em;
 }
 .divTableBody {
     display: table-row-group;
