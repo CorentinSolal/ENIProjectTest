@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Sortie;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +17,7 @@ class SortieType extends AbstractType
             ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom de la sortie']])
             ->add('dateHeureDebut',DateTimeType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('duree',null,['attr'=>['class' => 'glass-button uk-margin']])
-            ->add('dateLimiteInscription')
+            ->add('dateLimiteInscription',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('nbInscriptionsMax',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nombre d\'inscrits max']])
             ->add('infosSortie',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Infos suppémentaires']])
             ->add('campus')
