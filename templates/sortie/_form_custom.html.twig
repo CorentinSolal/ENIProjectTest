@@ -1,0 +1,12 @@
+{{ form_start(formCustom) }}
+    {{ form_row(formCustom.nomCampus, {'label': 'Campus'}) }}
+    {{ form_row(formCustom.nomSortie, {'label': 'Le nom contient'}) }}
+    {{ form_row(formCustom.date1, {'label': 'entre'}) }}
+    {{ form_row(formCustom.date2, {'label': 'et'}) }}
+    {{ form_row(formCustom.organisateur, {'label': 'Sorties dont je suis l\'organisateur/trice'}) }}
+    {{ form_row(formCustom.inscrit, {'label': 'Sorties auxquelles je suis inscrit/e'}) }}
+    {{ form_row(formCustom.non_inscrit, {'label': 'Sorties auxquelles je ne suis pas inscrit/e'}) }}
+    {{ form_row(formCustom.passe, {'label': 'Sorties passées'}) }}
+
+    <button class="uk-button">{{ button_label|default('Rechercher') }}</button>
+{{ form_end(formCustom) }}
