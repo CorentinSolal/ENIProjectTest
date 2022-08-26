@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Sortie;
-use Doctrine\DBAL\Types\DateTimeType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +14,7 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom de la sortie']])
-            ->add('dateHeureDebut',null,['attr'=>['class' => 'glass-button uk-margin']])
+            ->add('dateHeureDebut',DateTimeType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('duree',null,['attr'=>['class' => 'glass-button uk-margin']])
             ->add('dateLimiteInscription')
             ->add('nbInscriptionsMax',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nombre d\'inscrits max']])
