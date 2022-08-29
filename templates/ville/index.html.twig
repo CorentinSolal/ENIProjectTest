@@ -3,42 +3,42 @@
 {% block title %}Ville index{% endblock %}
 
 {% block body %}
-    <h1>Ville index</h1>
+    <div class="container">
+        <h1>Cities</h1>
 
-    {{ form_start(form) }}
-    {{ form_row(form.nom) }}
-    {{ form_row(form._token) }}
-{#    <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>#}
-    <button class="btn">{{ button_label|default('Rechercher') }}</button>
-    {{ form_end(form,{render_rest: false}) }}
+        {{ form_start(form) }}
+        {{ form_widget(form.nom) }}
+        {{ form_row(form._token) }}
+        {#    <input type="hidden" name="token" value="{{ csrf_token('delete-item') }}"/>#}
+        <button class="glass-button">{{ button_label|default('Rechercher') }}</button>
+        {{ form_end(form,{render_rest: false}) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>CodePostal</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for ville in villes %}
-            <tr>
-                <td>{{ ville.id }}</td>
-                <td>{{ ville.nom }}</td>
-                <td>{{ ville.codePostal }}</td>
-                <td>
-                    <a href="{{ path('app_ville_show', {'id': ville.id}) }}">show</a>
-                    <a href="{{ path('app_ville_edit', {'id': ville.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="glass-panel uk-grid-divider" uk-grid>
+            <div class="divTable">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableCell"><h3>ID</h3></div>
+                        <div class="divTableCell"><h3>Nom de la ville</h3></div>
+                        <div class="divTableCell"><h3>Code postal</h3></div>
+                        <div class="divTableCell"><h3>Actions</h3></div>
+                    </div>
+                    {% for ville in villes %}
+                        <div class="divTableRow">
+                            <div class="divTableCell">{{ ville.id }}</div>
+                            <div class="divTableCell">{{ ville.nom }}</div>
+                            <div class="divTableCell">{{ ville.codePostal }}</div>
+                            <div class="divTableCell">
+                                <a href="{{ path('app_campus_show', {'id': ville.id}) }}">show</a>
+                                <a href="{{ path('app_campus_edit', {'id': ville.id}) }}">edit</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="divTableCell">no cities found</div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
 
-    <a href="{{ path('app_ville_new') }}">Create new</a>
+        <a href="{{ path('app_ville_new') }}">Create new</a>
+    </div>
 {% endblock %}
