@@ -9,11 +9,23 @@
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
     <div class="container">
-        {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}
+        {{ form_start(form2) }}
+        {{ form_widget(form2.campus) }}
+        {{ form_widget(form2.nom) }}
+        {{ form_widget(form2.date1) }}
+        {{ form_widget(form2.date2) }}
+        <div class="uk-flex uk-margin-auto uk-flex-center">
+            <div>{{ form_row(form2.organisateur) }}</div>
+            <div>{{ form_row(form2.inscrit) }}</div>
+            <div>{{ form_row(form2.non_inscrit) }}</div>
+            <div>{{ form_row(form2.passees) }}</div>
+        </div>
+        {{ form_widget(form2.rechercher) }}
+        {{ form_end(form2) }}
     </div>
 
 
-
+<div class="uk-flex uk-margin-auto">
     {% for sortie in sorties %}
         <div class="card" id="card">
             <div class="card__inner">
@@ -41,6 +53,7 @@
     {% endfor %}
     <a class="uk-position-center-left-out" href="#" uk-slider-item="previous">…</a>
     <a class="uk-position-center-right-out" href="#" uk-slider-item="next">…</a>
+</div>
     <div>
         <a href="{{ path('app_sortie_new') }}"><button class="glass-button">Créer une nouvelle sortie</button></a>
     </div>
