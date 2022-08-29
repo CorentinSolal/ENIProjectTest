@@ -25,10 +25,10 @@
     </div>
 
 
-<div class="uk-flex uk-margin-auto">
+<div class="uk-flex uk-margin">
     {% for sortie in sorties %}
-        <div class="card" id="card">
-            <div class="card__inner">
+        <div class="card " id="card">
+            <div class="card__inner ">
                 <div class="card__face card__face--front">
                     <h2>{{ sortie.nom }}</h2>
                 </div>
@@ -44,17 +44,15 @@
                             <p>Durée : {{ sortie.duree }} min</p>
                             <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
                             <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
-                            <a href=""><button class="glass-button">S'inscrire à l'évênement</button></a>
+                            <a href="{{ path('app_sortie_ajout',{'id':sortie.id}) }}"><button class="glass-button">S'inscrire à l'évênement</button></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     {% endfor %}
-    <a class="uk-position-center-left-out" href="#" uk-slider-item="previous">…</a>
-    <a class="uk-position-center-right-out" href="#" uk-slider-item="next">…</a>
 </div>
-    <div>
+    <div class="uk-flex-center uk-flex uk-margin">
         <a href="{{ path('app_sortie_new') }}"><button class="glass-button">Créer une nouvelle sortie</button></a>
     </div>
 

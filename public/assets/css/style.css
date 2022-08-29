@@ -19,9 +19,11 @@
 ;
 }
 body{
-    font-family: montserrat, sans-serif;
     width: 100%;
     min-height: 100vh;
+}
+main{
+    margin: 2rem;
 }
 .glass-panel, .container {
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
