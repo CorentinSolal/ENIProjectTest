@@ -12,15 +12,18 @@
         {{ form_start(form2) }}
         {{ form_widget(form2.campus) }}
         {{ form_widget(form2.nom) }}
+        <div class="uk-flex uk-margin-auto uk-flex-around">
         {{ form_widget(form2.date1) }}
         {{ form_widget(form2.date2) }}
-        <div class="uk-flex uk-margin-auto uk-flex-center">
+        </div>
+        <div class="uk-flex uk-margin-auto uk-flex-around">
             <div>{{ form_row(form2.organisateur) }}</div>
             <div>{{ form_row(form2.inscrit) }}</div>
             <div>{{ form_row(form2.non_inscrit) }}</div>
             <div>{{ form_row(form2.passees) }}</div>
         </div>
         {{ form_widget(form2.rechercher) }}
+        {{ form_widget(form2.reset) }}
         {{ form_end(form2) }}
     </div>
 
