@@ -42,8 +42,8 @@ class SortieController extends AbstractController
             ->add('date2',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('organisateur',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
             ->add('inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox'],'data'=> true])
-            ->add('non_inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
-            ->add('passees',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox'],'data'=> true])
+            ->add('non_inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox'],'data'=> true])
+            ->add('passees',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
             ->add('rechercher', SubmitType::class,['attr'=>['class'=>'glass-button uk-margin']])
             ->add('reset', SubmitType::class, ['label' => 'reset','attr'=>['class'=>'glass-button uk-margin']])
 
