@@ -37,7 +37,7 @@ class SortieController extends AbstractController
     {
         $form2 = $this->createFormBuilder()
             ->add('campus',TextType::class,['attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
-            ->add('nom',TextType::class,['required' => false, 'empty_data' => '','attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
+            ->add('nom',TextType::class,['required' => false, 'empty_data' => '','attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Nom']])
             ->add('date1',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('date2',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('organisateur',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
