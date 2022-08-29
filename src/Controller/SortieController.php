@@ -35,17 +35,16 @@ class SortieController extends AbstractController
     public function index(Request $request, ManagerRegistry $doctrine, SortieRepository $sortieRepository, CampusRepository $campusRepository, EtatRepository $etatRepository): Response
     {
         $form2 = $this->createFormBuilder()
-            ->add('campus',TextType::class)
-            ->add('nom',TextType::class,['required' => false, 'empty_data' => ''])
-            ->add('date1',DateType::class)
-            ->add('date2',DateType::class)
-            ->add('organisateur',CheckboxType::class,['required' => false])
-            ->add('inscrit',CheckboxType::class,['required' => false])
-            ->add('non_inscrit',CheckboxType::class,['required' => false])
-            ->add('passees',CheckboxType::class,['required' => false])
-            ->add('rechercher', SubmitType::class)
+            ->add('campus',TextType::class,['attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
+            ->add('nom',TextType::class,['required' => false, 'empty_data' => '','attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
+            ->add('date1',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
+            ->add('date2',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
+            ->add('organisateur',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
+            ->add('inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
+            ->add('non_inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
+            ->add('passees',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
+            ->add('rechercher', SubmitType::class,['attr'=>['class'=>'glass-button uk-margin']])
             ->getForm();
-
         $session = $request->getSession();
         $form2->handleRequest($request);
 

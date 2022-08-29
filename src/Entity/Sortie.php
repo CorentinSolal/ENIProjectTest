@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\SortieRepository;
+use App\Entity\boolean;
 use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
