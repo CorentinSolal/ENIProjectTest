@@ -8,8 +8,11 @@
 {% block body %}
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
+{{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}
 
-                        {% for sortie in sorties %}
+
+
+    {% for sortie in sorties %}
                             <div class="card" id="card">
                                 <div class="card__inner">
                                     <div class="card__face card__face--front">
