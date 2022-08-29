@@ -36,8 +36,8 @@ main{
 .glass-panel, .container {
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
     margin: 2rem;
-    padding-left: 8rem;
-    padding-right: 8rem;
+    padding-left: 6rem;
+    padding-right: 6rem;
     height: auto;
     border-radius: 20px;
     border-left: 1px solid var(--transparant);

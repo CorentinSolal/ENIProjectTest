@@ -4,15 +4,14 @@
 
 {% block body %}
 
-    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-margin uk-border-rounded glass-panel"
-         uk-grid>
+    <div class="uk-card uk-card-default uk-grid-collapse uk-child-width-1-2@s uk-border-rounded container" uk-grid>
         <div class="uk-position-relative uk-visible-toggle uk-light " style="margin: auto;" tabindex="-1 "
              uk-slideshow="autoplay: true autoplay-interval: 2000 ">
             <ul class="uk-slideshow-items uk-border-rounded">
-                <li><img src="assets/images/Afterwork2.jpeg" alt="" uk-cover></li>
-                <li><img src="assets/images/afterwork-1024x561.jpg" alt="" uk-cover></li>
-                <li><img src="assets/images/evenement-pro.jpg" alt="" uuk-cover></li>
-                <li><img src="assets/images/afterwork-14.jpg" alt="" uk-cover></li>
+                <li><img src="{{ asset('assets/images/Afterwork2.jpeg') }}" uk-cover></li>
+                <li><img src="{{ asset('assets/images/afterwork-1024x561.jpg') }}" uk-cover></li>
+                <li><img src="{{ asset('assets/images/evenement-pro.jpg') }}" uk-cover></li>
+                <li><img src="{{ asset('assets/images/afterwork-14.jpg') }}" uk-cover></li>
             </ul>
             <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous
                uk-slideshow-item="previous"></a>
@@ -23,13 +22,11 @@
         <div>
             <div class="uk-card-body uk-light">
                 <h3 class="uk-card-title">Qu'est-ce que Sortir.com</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus earum eos, facere ipsa iste
+                <p class="uk-text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Delectus earum eos, facere ipsa iste
                     maiores minus molestiae necessitatibus, officia quia sapiente sit tempora? Alias animi asperiores
                     assumenda at aut consequuntur dicta dignissimos dolore eius eligendi enim eum, expedita facilis,
                     fugit harum illum in incidunt inventore laborum molestiae nostrum officiis perspiciatis placeat quia
-                    quidem quis, quisquam quos reprehenderit sapiente similique tenetur veritatis voluptas voluptatibus.
-                    Atque consequuntur expedita, illo magni nesciunt quis rem! Distinctio officiis quia quo quod, quos
-                    repellendus voluptate. Aliquam.</p>
+                    quidem quis, quisquam quos reprehenderit sapiente similique tenetur veritatis voluptas voluptatibus.</p>
             </div>
         </div>
     </div>
