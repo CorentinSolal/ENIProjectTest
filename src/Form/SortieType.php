@@ -15,7 +15,7 @@ class SortieType extends AbstractType
     {
         $builder
             ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom de la sortie']])
-            ->add('dateHeureDebut',DateTimeType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin','id' => 'cal']])
+            ->add('dateHeureDebut',DateTimeType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin','id' => 'cal000']])
             ->add('duree',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Durée']])
             ->add('dateLimiteInscription',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('nbInscriptionsMax',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nombre d\'inscrits max']])
