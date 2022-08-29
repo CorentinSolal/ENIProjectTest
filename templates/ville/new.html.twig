@@ -3,9 +3,13 @@
 {% block title %}New Ville{% endblock %}
 
 {% block body %}
-    <h1>Create new Ville</h1>
+    <div class="container">
+        <h1>Create new Ville</h1>
+        <div class="container">
 
-    {{ include('ville/_form.html.twig') }}
+            {{ include('ville/_form.html.twig') }}
 
-    <a href="{{ path('app_ville_index') }}">back to list</a>
+            <a href="{{ path('app_ville_index') }}">back to list</a>
+        </div>
+    </div>
 {% endblock %}

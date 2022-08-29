@@ -31,13 +31,8 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_lieu') }}" class="glass-button">back to list</a>
-
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d677.3688629968514!2d-1.6212539707580034!3d47.22684510943844!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4805ecebd3ed701b%3A0x68fa763bbbed364b!2s2%20Rue%20Benjamin%20Franklin%2C%2044800%20Saint-Herblain!5e0!3m2!1sfr!2sfr!4v1661432926582!5m2!1sfr!2sfr"
-            width="450" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-
-
-
+    <a href="{{ path('app_lieu_index') }}"><button class="glass-button">back to list</button></a>
+    
     {% if is_granted('ROLE_ADMIN') %}
     {{ include('lieu/_delete_form.html.twig') }}
     {% endif %}

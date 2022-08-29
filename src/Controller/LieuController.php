@@ -44,7 +44,7 @@ class LieuController extends AbstractController
             $lieuRepository->add($lieu, true);
 
 
-            return $this->redirectToRoute('app_lieu', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_lieu_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('lieu/new.html.twig', [
@@ -62,7 +62,7 @@ class LieuController extends AbstractController
             $lieuRepository->remove($lieu, true);
         }
 
-        return $this->redirectToRoute('app_lieu', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_lieu_index', [], Response::HTTP_SEE_OTHER);
     }
 
 
