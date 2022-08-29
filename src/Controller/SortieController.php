@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,11 +45,13 @@ class SortieController extends AbstractController
             ->add('non_inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
             ->add('passees',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
             ->add('rechercher', SubmitType::class,['attr'=>['class'=>'glass-button uk-margin']])
+            ->add('reset', SubmitType::class, ['label' => 'reset','attr'=>['class'=>'glass-button uk-margin']])
+
             ->getForm();
         $session = $request->getSession();
         $form2->handleRequest($request);
 
-        if ($form2->isSubmitted() && $form2->isValid()) {
+        if ($form2->isSubmitted() && $form2->isValid()  && !$form2->get('reset')->isClicked()) {
 
             $retour_form = $form2->getViewData();
             $nom_campus = $retour_form["campus"];
@@ -100,21 +103,18 @@ class SortieController extends AbstractController
             $sorties = $query->getResult();
 
 
+
+
             return $this->renderForm('sortie/index.html.twig', [
-
-
                 'sorties' => $sorties,
                 'form2' => $form2,
-                'estEnvoye' => $form2->isSubmitted(),
-                'etsValide' => $form2->isSubmitted() && $form2->isValid(),
             ]);
         }
+
 
         return $this->renderForm('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
             'form2' => $form2,
-            'estEnvoye' => $form2->isSubmitted(),
-            'etsValide' => $form2->isSubmitted() && $form2->isValid(),
         ]);
     }
 
