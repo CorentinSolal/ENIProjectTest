@@ -32,6 +32,9 @@ body {
     position: relative;
 }
 
+.card:hover .card__inner{
+    transform: rotateY(180deg);
+}
 .card__inner.is-flipped {
     transform: rotateY(180deg);
 }

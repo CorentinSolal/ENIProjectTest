@@ -8,77 +8,80 @@
 {% block body %}
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
-{#    {% for sortie in sorties %}#}
-{#        <div class="uk-flex-center">#}
-{#            <div class="card">#}
-{#                <div class="card__inner">#}
-{#                    <div class="card__face card__face--front">#}
-{#                        <h2>{{ sortie.nom }}</h2>#}
-{#                    </div>#}
-{#                    <div class="card__face card__face--back">#}
-{#                        <div class="card__content">#}
-{#                            <div class="card__header">#}
-{#                                <img src="{{ asset('assets/images/{{ sortie.id }}.png') }}" alt="" class="pp" />#}
-{#                                <h2>{{ sortie.nom }}</h2>#}
-{#                            </div>#}
-{#                            <div class="card__body">#}
-{#                                <h3>{{ sortie.infosSortie }}</h3>#}
-{#                                <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>#}
-{#                                <p>Durée : {{ sortie.duree }}</p>#}
-{#                                <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>#}
-{#                                <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>#}
-{#                            </div>#}
-{#                        </div>#}
-{#                    </div>#}
-{#                </div>#}
-{#            </div>#}
-{#        </div>#}
-{#    {% endfor %}#}
+    <div class="uk-grid">
+        <div class="uk-flex-center">
+            {% for sortie in sorties %}
+            <div class="card" id="card">
+                <div class="card__inner">
+                    <div class="card__face card__face--front">
+                        <h2>{{ sortie.nom }}</h2>
+                    </div>
+                    <div class="card__face card__face--back">
+                        <div class="card__content">
+                            <div class="card__header">
+                                <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
+                                <h2>{{ sortie.nom }}</h2>
+                            </div>
+                            <div class="card__body">
+                                <h3>{{ sortie.infosSortie }}</h3>
+                                <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
+                                <p>Durée : {{ sortie.duree }}</p>
+                                <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
+                                <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
+                                <button class="glass-button">S'inscrire</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
-    <div class="card" id="flipped_card">
-        <div class="card__inner">
-            <div class="card__face card__face--front">
-                <h2>BBQ</h2>
-            </div>
-            <div class="card__face card__face--back">
-                <div class="card__content">
-                    <div class="card__header">
-                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
-                        <h2>BBQ</h2>
-                    </div>
-                    <div class="card__body">
-                        <h3>Viens</h3>
-                        <p>Date : Le 12</p>
-                        <p>Durée : 4 heures</p>
-                        <p>Date limite d'inscription : demain</p>
-                        <p>Nb inscription max : 20</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="card" id="flipped_card">
-        <div class="card__inner">
-            <div class="card__face card__face--front">
-                <h2>BBQ</h2>
-            </div>
-            <div class="card__face card__face--back">
-                <div class="card__content">
-                    <div class="card__header">
-                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
-                        <h2>BBQ</h2>
-                    </div>
-                    <div class="card__body">
-                        <h3>Viens</h3>
-                        <p>Date : Le 12</p>
-                        <p>Durée : 4 heures</p>
-                        <p>Date limite d'inscription : demain</p>
-                        <p>Nb inscription max : 20</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    {#    <div class="card" id="flipped_card">#}
+    {#        <div class="card__inner">#}
+    {#            <div class="card__face card__face--front">#}
+    {#                <h2>BBQ</h2>#}
+    {#            </div>#}
+    {#            <div class="card__face card__face--back">#}
+    {#                <div class="card__content">#}
+    {#                    <div class="card__header">#}
+    {#                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />#}
+    {#                        <h2>BBQ</h2>#}
+    {#                    </div>#}
+    {#                    <div class="card__body">#}
+    {#                        <h3>Viens</h3>#}
+    {#                        <p>Date : Le 12</p>#}
+    {#                        <p>Durée : 4 heures</p>#}
+    {#                        <p>Date limite d'inscription : demain</p>#}
+    {#                        <p>Nb inscription max : 20</p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <div class="card" id="flipped_card">#}
+    {#        <div class="card__inner">#}
+    {#            <div class="card__face card__face--front">#}
+    {#                <h2>BBQ</h2>#}
+    {#            </div>#}
+    {#            <div class="card__face card__face--back">#}
+    {#                <div class="card__content">#}
+    {#                    <div class="card__header">#}
+    {#                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />#}
+    {#                        <h2>BBQ</h2>#}
+    {#                    </div>#}
+    {#                    <div class="card__body">#}
+    {#                        <h3>Viens</h3>#}
+    {#                        <p>Date : Le 12</p>#}
+    {#                        <p>Durée : 4 heures</p>#}
+    {#                        <p>Date limite d'inscription : demain</p>#}
+    {#                        <p>Nb inscription max : 20</p>#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
 
     {% block script %}
         <script src="{{ asset('assets/js/card.js') }}"></script>
