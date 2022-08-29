@@ -4,13 +4,21 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Entity\Sortie;
+use App\Form\CampusType;
 use App\Form\SortieType;
+use App\Form\SortieFormType;
 use App\Repository\CampusRepository;
+use App\Repository\EtatRepository;
 use App\Repository\LieuRepository;
 use App\Repository\SortieRepository;
 use App\Repository\VilleRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -22,12 +30,92 @@ use function Sodium\add;
 class SortieController extends AbstractController
 {
     /**
-     * @Route("/", name="app_sortie_index", methods={"GET"})
+     * @Route("/", name="app_sortie_index", methods={"GET", "POST"})
      */
-    public function index(SortieRepository $sortieRepository): Response
+    public function index(Request $request, ManagerRegistry $doctrine, SortieRepository $sortieRepository, CampusRepository $campusRepository, EtatRepository $etatRepository): Response
     {
-        return $this->render('sortie/index.html.twig', [
+        $form2 = $this->createFormBuilder()
+            ->add('campus',TextType::class)
+            ->add('nom',TextType::class,['required' => false, 'empty_data' => ''])
+            ->add('date1',DateType::class)
+            ->add('date2',DateType::class)
+            ->add('organisateur',CheckboxType::class,['required' => false])
+            ->add('inscrit',CheckboxType::class,['required' => false])
+            ->add('non_inscrit',CheckboxType::class,['required' => false])
+            ->add('passees',CheckboxType::class,['required' => false])
+            ->add('rechercher', SubmitType::class)
+            ->getForm();
+
+        $session = $request->getSession();
+        $form2->handleRequest($request);
+
+        if ($form2->isSubmitted() && $form2->isValid()) {
+
+            $retour_form = $form2->getViewData();
+            $nom_campus = $retour_form["campus"];
+            $campus = $campusRepository->findOneBy(["nom" => $nom_campus]);
+            $nom =  $retour_form["nom"];
+            $date1 =  $retour_form["date1"];
+            $date2 =  $retour_form["date2"];
+            $orga =  $retour_form["organisateur"];
+            $inscrit =  $retour_form["inscrit"];
+            $non_inscrit =  $retour_form["non_inscrit"];
+            $passees =  $retour_form["passees"];
+
+            $id =$this->getUser()->getUserIdentifier();
+            $repoParticipant = $doctrine->getRepository(Participant ::class);
+            $mecConncete = $repoParticipant->findOneBy(['mail' => $id ]);
+            //dd($campus);
+
+            $entityManager = $doctrine->getManager();
+            $dql = "Select s from App\Entity\Sortie s
+            where s.campus = :campus
+            and s.nom like :nom AND s.dateHeureDebut >= :date1
+            and s.dateHeureDebut <= :date2";
+
+
+
+            if ($orga){
+                $dql .= " and s.organisateur = :mecConnecte1";}
+
+            if (!$inscrit){
+                $dql .= " and :mecConnecte2 member of s.participantList";}
+
+            if (!$non_inscrit){
+                $dql .= " and :mecConnecte3 not member of s.participantList";}
+
+            if (!$passees){
+                $etat = $etatRepository->findBy(['id' => [1,2,3,4]]);
+                $dql .= " and s.etat in (:valEtat)";}
+
+            $query = $entityManager->createQuery($dql);
+            $query->setParameter('campus', $campus);
+            $query->setParameter('nom', '%'.$nom.'%');
+            $query->setParameter('date1', $date1);
+            $query->setParameter('date2', $date2);
+            !$orga ? :$query->setParameter('mecConnecte1', $mecConncete);
+            $inscrit ? :$query->setParameter('mecConnecte2', $mecConncete);
+            $non_inscrit ? :$query->setParameter('mecConnecte3', $mecConncete);
+            $passees ? :$query->setParameter('valEtat', $etat);
+
+            $sorties = $query->getResult();
+
+
+            return $this->renderForm('sortie/index.html.twig', [
+
+
+                'sorties' => $sorties,
+                'form2' => $form2,
+                'estEnvoye' => $form2->isSubmitted(),
+                'etsValide' => $form2->isSubmitted() && $form2->isValid(),
+            ]);
+        }
+
+        return $this->renderForm('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
+            'form2' => $form2,
+            'estEnvoye' => $form2->isSubmitted(),
+            'etsValide' => $form2->isSubmitted() && $form2->isValid(),
         ]);
     }
 

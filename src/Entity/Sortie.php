@@ -236,4 +236,9 @@ class Sortie
         return $this;
     }
 
+    public function isParticipant(Participant $participant): boolean
+    {
+        return $this->participantList->contains($participant);
+    }
+
 }
