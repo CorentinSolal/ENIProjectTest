@@ -1,4 +1,8 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-<button class="uk-button">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.rue) }}
+    {{ form_widget(form.latitude) }}
+    {{ form_widget(form.longitude) }}
+    {{ form_widget(form.ville) }}
+<button class="glass-button">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

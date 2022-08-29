@@ -79,6 +79,11 @@ class Sortie
      */
     private $participantList;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $urlImage;
+
 
 
     public function __construct()
@@ -241,6 +246,18 @@ class Sortie
     public function isParticipant(Participant $participant): boolean
     {
         return $this->participantList->contains($participant);
+    }
+
+    public function getUrlImage(): ?string
+    {
+        return $this->urlImage;
+    }
+
+    public function setUrlImage(?string $urlImage): self
+    {
+        $this->urlImage = $urlImage;
+
+        return $this;
     }
 
 }

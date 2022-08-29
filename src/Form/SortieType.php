@@ -20,6 +20,7 @@ class SortieType extends AbstractType
             ->add('dateLimiteInscription',DateType::class,['widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('nbInscriptionsMax',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nombre d\'inscrits max']])
             ->add('infosSortie',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Infos suppémentaires']])
+            ->add('urlImage',null,['attr'=>['class'=>'glass-button uk-margin','placeholder'=>'Url de l\'image']])
             ->add('campus',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Campus']])
             ->add('lieu',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Lieu']])
             ->add('etat',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Etat']])

@@ -7,7 +7,7 @@
 .card {
     margin: 1rem;
     width: 400px;
-    height: 600px;
+    height: 650px;
     perspective: 1000px;
     z-index: 1;
 
@@ -49,11 +49,12 @@
 .card__face--back {
     background-color: var(--dark);
     transform: rotateY(180deg);
-    overflow: auto;
+
 }
 .card__content {
     width: 100%;
     height: 100%;
+    overflow: auto;
 }
 .card__header {
     position: relative;
@@ -90,6 +91,7 @@
 }
 .card__body {
     padding: 20px;
+    overflow: auto;
 }
 .card__body h3 {
     color: var(--light);
