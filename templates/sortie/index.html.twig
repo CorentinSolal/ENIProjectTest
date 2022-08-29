@@ -8,80 +8,55 @@
 {% block body %}
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
-    <div class="uk-grid">
-        <div class="uk-flex-center">
-            {% for sortie in sorties %}
-            <div class="card" id="card">
-                <div class="card__inner">
-                    <div class="card__face card__face--front">
-                        <h2>{{ sortie.nom }}</h2>
-                    </div>
-                    <div class="card__face card__face--back">
-                        <div class="card__content">
-                            <div class="card__header">
-                                <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
-                                <h2>{{ sortie.nom }}</h2>
+
+    <div uk-slider>
+
+        <div class="uk-position-relative">
+
+            <div class="uk-slider-container">
+                <ul class="uk-slider-items">
+                    <li>
+                        {% for sortie in sorties %}
+                            <div class="card" id="card">
+                                <div class="card__inner">
+                                    <div class="card__face card__face--front">
+                                        <h2>{{ sortie.nom }}</h2>
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <div class="card__content">
+                                            <div class="card__header">
+                                                <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
+                                                <h2>{{ sortie.nom }}</h2>
+                                            </div>
+                                            <div class="card__body">
+                                                <h3>{{ sortie.infosSortie }}</h3>
+                                                <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
+                                                <p>Durée : {{ sortie.duree }} min</p>
+                                                <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
+                                                <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
+                                                <a href=""><button class="glass-button">S'inscrire à l'évênement</button></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="card__body">
-                                <h3>{{ sortie.infosSortie }}</h3>
-                                <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
-                                <p>Durée : {{ sortie.duree }} min</p>
-                                <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
-                                <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
-                                <a href=""><button class="glass-button">S'inscrire à l'évênement</button></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        {% endfor %}
+                    </li>
+                </ul>
             </div>
+
+            <a class="uk-position-center-left-out" href="#" uk-slider-item="previous">…</a>
+            <a class="uk-position-center-right-out" href="#" uk-slider-item="next">…</a>
+
         </div>
-        {% endfor %}
+
+        <ul class="uk-slider-nav uk-dotnav"></ul>
+
     </div>
 
-    {#    <div class="card" id="flipped_card">#}
-    {#        <div class="card__inner">#}
-    {#            <div class="card__face card__face--front">#}
-    {#                <h2>BBQ</h2>#}
-    {#            </div>#}
-    {#            <div class="card__face card__face--back">#}
-    {#                <div class="card__content">#}
-    {#                    <div class="card__header">#}
-    {#                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />#}
-    {#                        <h2>BBQ</h2>#}
-    {#                    </div>#}
-    {#                    <div class="card__body">#}
-    {#                        <h3>Viens</h3>#}
-    {#                        <p>Date : Le 12</p>#}
-    {#                        <p>Durée : 4 heures</p>#}
-    {#                        <p>Date limite d'inscription : demain</p>#}
-    {#                        <p>Nb inscription max : 20</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#    <div class="card" id="flipped_card">#}
-    {#        <div class="card__inner">#}
-    {#            <div class="card__face card__face--front">#}
-    {#                <h2>BBQ</h2>#}
-    {#            </div>#}
-    {#            <div class="card__face card__face--back">#}
-    {#                <div class="card__content">#}
-    {#                    <div class="card__header">#}
-    {#                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />#}
-    {#                        <h2>BBQ</h2>#}
-    {#                    </div>#}
-    {#                    <div class="card__body">#}
-    {#                        <h3>Viens</h3>#}
-    {#                        <p>Date : Le 12</p>#}
-    {#                        <p>Durée : 4 heures</p>#}
-    {#                        <p>Date limite d'inscription : demain</p>#}
-    {#                        <p>Nb inscription max : 20</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
+    <div>
+        <a href="{{ path('app_sortie_new') }}"><button class="glass-button">Créer une nouvelle sortie</button></a>
+    </div>
 
     {% block script %}
         <script src="{{ asset('assets/js/card.js') }}"></script>

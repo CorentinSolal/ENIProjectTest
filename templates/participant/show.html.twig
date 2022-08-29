@@ -11,7 +11,7 @@
                     <img class="uk-border-circle" width="128" height="128" src="{{ asset('assets/images/default.jpg') }}" >
                 </div>
                 <div class="uk-width-expand">
-                    <div class="uk-card-body uk-text-justify">
+                    <div class="uk-card-body uk-text-right">
                         {% if is_granted('ROLE_ADMIN') %}
                             <p>Id : {{ participant.id }}</p>
                         {% endif %}
@@ -28,13 +28,14 @@
             </div>
         </div>
 
+        <div class="">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('app_participant_index') }}" class="uk-button uk-button-text">back to list</a>
+            {% endif %}
+            <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
 
-        {% if is_granted('ROLE_ADMIN') %}
-            <a href="{{ path('app_participant_index') }}" class="uk-button uk-button-text">back to list</a>
-        {% endif %}
-        <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
-
-        {{ include('participant/_delete_form.html.twig') }}
+            {{ include('participant/_delete_form.html.twig') }}
+        </div>
     </div>
 
 {% endblock %}
