@@ -18,26 +18,10 @@
 main{
     margin: 2rem;
 }
-/*.container {*/
-/*    background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));*/
-/*    margin: 1em;*/
-/*    padding: 2em;*/
-/*    height: auto;*/
-/*    border-radius: 20px;*/
-/*    border-left: 1px solid var(--transparant);*/
-/*    border-top: 1px solid var(--transparant);*/
-/*    backdrop-filter: blur(10px);*/
-/*    box-shadow: 20px 20px 40px -6px rgba(0,0,0,0.2);*/
-/*    text-align: center;*/
-/*    position: relative;*/
-/*    transition: all 0.2s ease-in-out;*/
-/*    justify-content: center;*/
-/*}*/
 .glass-panel, .container {
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
     margin: 2rem;
-    padding-left: 6rem;
-    padding-right: 6rem;
+    padding: 2rem 6rem;
     height: auto;
     border-radius: 20px;
     border-left: 1px solid var(--transparant);
@@ -79,7 +63,6 @@ main{
     backdrop-filter: blur(5px);
     box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
     color: #fff;
-
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
