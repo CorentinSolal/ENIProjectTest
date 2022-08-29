@@ -18,6 +18,27 @@
     background-image: linear-gradient(to bottom right, var(--background-first), var(--background-second));
 ;
 }
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+    background: black;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: darkgrey;
+    border-radius: 10px;
+}
+::-webkit-scrollbar-corner{
+
+}
+
 body{
     width: 100%;
     min-height: 100vh;

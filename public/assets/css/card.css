@@ -10,6 +10,7 @@
     height: 600px;
     perspective: 1000px;
     z-index: 1;
+
 }
 .card__inner {
 
@@ -48,6 +49,7 @@
 .card__face--back {
     background-color: var(--dark);
     transform: rotateY(180deg);
+    overflow: auto;
 }
 .card__content {
     width: 100%;
