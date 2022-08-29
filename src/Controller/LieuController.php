@@ -18,7 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class LieuController extends AbstractController
 {
     /**
-     * @Route("/", name="app_lieu")
+     * @Route("/", name="app_lieu_index")
      */
     public function index(LieuRepository $lieuRepository): Response
     {

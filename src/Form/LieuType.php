@@ -12,11 +12,11 @@ class LieuType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom')
-            ->add('rue')
-            ->add('latitude')
-            ->add('longitude')
-            ->add('ville')
+            ->add('nom',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
+            ->add('rue',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Rue']])
+            ->add('latitude',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Latitude']])
+            ->add('longitude',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Longitude']])
+            ->add('ville',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Ville']])
 
         ;
     }

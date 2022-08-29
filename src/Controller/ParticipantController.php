@@ -54,13 +54,9 @@ class ParticipantController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $participant->setPassword(
-                $userPasswordHasher->hashPassword(
-                    $participant,
-                    $form->get('password')->getData()
-                )
+                $userPasswordHasher->hashPassword($participant, $form->get('password')->getData())
             );
             $participantRepository->add($participant, true);
-
 
             return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
         }

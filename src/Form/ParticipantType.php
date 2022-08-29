@@ -15,13 +15,13 @@ class ParticipantType extends AbstractType
         $builder
             ->add('mail',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'mail']])
             /*->add('roles')*/
-            ->add('password', PasswordType::class, array('label' => 'Password'))
+            ->add('password', PasswordType::class, array('label' => 'Password','attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']))
             ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
             ->add('prenom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Prenom']])
             ->add('telephone',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Telephone']])
             /*->add('administrateur')*/
             /*->add('actif')*/
-            ->add('campus')
+            ->add('campus',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
             /*->add('sortieParticipants')*/
         ;
     }

@@ -1,4 +1,12 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="uk-button">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.dateHeureDebut) }}
+    {{ form_widget(form.duree) }}
+    {{ form_widget(form.dateLimiteInscription) }}
+    {{ form_widget(form.nbInscriptionsMax) }}
+    {{ form_widget(form.infosSortie) }}
+    {{ form_widget(form.campus) }}
+    {{ form_widget(form.lieu) }}
+    {{ form_widget(form.etat) }}
+    <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

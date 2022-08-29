@@ -18,8 +18,8 @@ class SortieFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('campus')
-            ->add('nom')
+            ->add('campus',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Campus']])
+            ->add('nom',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
             ->add('date_heure_debut', DateType::class, ['label' => 'entre'])
             ->add('date_heure_debut', DateType::class, ['label' => 'et'])
             ->add('organisateur', CheckboxType::class, [

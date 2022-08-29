@@ -1,8 +1,25 @@
-<div class="uk-flex uk-flex-right">
-    <div>Date du jour :
-        <script>
-            date = new Date().toLocaleDateString();
-            document.write(date);
-        </script>
-    </div>
-</div>
+{% for sortie in sorties %}
+                    <div class="card" id="card">
+                        <div class="card__inner">
+                            <div class="card__face card__face--front">
+                                <h2>{{ sortie.nom }}</h2>
+                            </div>
+                            <div class="card__face card__face--back">
+                                <div class="card__content">
+                                    <div class="card__header">
+                                        <img src="{{ asset('assets/images/1.png') }}" alt="" class="pp" />
+                                        <h2>{{ sortie.nom }}</h2>
+                                    </div>
+                                    <div class="card__body">
+                                        <h3>{{ sortie.infosSortie }}</h3>
+                                        <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
+                                        <p>Durée : {{ sortie.duree }} min</p>
+                                        <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
+                                        <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
+                                        <a href=""><button class="glass-button">S'inscrire à l'évênement</button></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
