@@ -1,53 +1,68 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Sortie{% endblock %}
+{% block title %}Détails de la sortie{% endblock %}
+
+{% block stylesheet %}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+          integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+          crossorigin=""/>
+{% endblock %}
 
 {% block body %}
-<div class="container">
-    <h1 class="uk-text-center">Sortie</h1>
-
-    <div class="glass-panel uk-grid-divider" uk-grid>
-        <div class="divTable">
-            <div class="divTableBody">
-                <div class="divTableRow">
-                    <div class="divTableCell"><h3>ID</h3></div>
-                    <div class="divTableCell"><h3>Nom </h3></div>
-                    <div class="divTableCell"><h3>Date et heure </h3></div>
-                    <div class="divTableCell"><h3>Duree </h3></div>
-                    <div class="divTableCell"><h3>Date limite d'inscription </h3></div>
-                    <div class="divTableCell"><h3>Nombre de participants maximum</h3></div>
-                    <div class="divTableCell"><h3>Informations</h3></div>
-                    <div class="divTableCell"><h3>Participants</h3></div>
-                </div>
-
-                <div class="divTableRow">
-                    <div class="divTableCell">{{ sortie.id }}</div>
-                    <div class="divTableCell">{{ sortie.nom }}</div>
-                    <div class="divTableCell">{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('Y-m-d') : '' }}</div>
-                    <div class="divTableCell">{{ sortie.duree }}</div>
-                    <div class="divTableCell">{{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('Y-m-d') : '' }}</div>
-                    <div class="divTableCell">{{ sortie.nbInscriptionsMax }}</div>
-                    <div class="divTableCell">{{ sortie.infosSortie }}</div>
-                    <div class="divTableCell">
-                        {% for parti in sortie.participantList %}
-                        {{ parti.prenom }} {{ parti.nom }}
-                        {% endfor %} </div>
-                    <div class="divTableCell">
-                        <a href="{{ path('app_sortie_show', {'id': sortie.id}) }}">show</a>
-                    </div>
-                </div>
+    <style>
+        #map { width: 400px;height: 400px }
+    </style>
+    <div class="container">
+        <div class="">
+            <img src="{{ asset(sortie.urlImage) }}" alt="" class="pp" />
+            <h1 class="uk-text-center">{{ sortie.nom }}</h1>
         </div>
+        <div class="uk-flex uk-flex-around">
+            <div class="container">
+                <h3>{{ sortie.infosSortie }}</h3>
+                <p>Rendez-vous le <time>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</time></p>
+                <p>Durée : {{ sortie.duree }} min</p>
+                <p>Places restantes : {{ sortie.nbInscriptionsMax }}</p>
+                <p>Date limite : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
+                <ul>
+                    {% for participant in sortie. %}
+                    <li>{{ participant.prenom }} </li>
+                </ul>
+            </div>
+            <div class="uk-margin container" id="map"></div>
+
+
+
+        </div>
+        <a href="{{ path('app_sortie_index') }}">back to list</a>
+
+        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a><br>
+
+        <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}">s'inscrire à la sortie</a>
+        {% if app.user in sortie.participantList and not app.user == sortie.organisateur %}
+            <br><a href="{{ path('app_sortie_suppr', {'id': sortie.id}) }}">se désinscrire de la sortie</a>
+        {% endif %}
+
+        {{ include('sortie/_delete_form.html.twig') }}
     </div>
-    </div>
-    <a href="{{ path('app_sortie_index') }}">back to list</a>
+{% endblock %}
+{% block script %}
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+            integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+            crossorigin=""></script>
+    <script>
+        function print () {
+            let map = L.map('map').setView([{{ sortie.lieu.latitude }}, {{ sortie.lieu.longitude }}], 13);
 
-    <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a><br>
+            L.marker([{{ sortie.lieu.latitude }}, {{ sortie.lieu.longitude }}]).addTo(map)
+                .bindPopup('Coucou c\'est ici')
+                .openPopup();
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 20,
+                attribution: '© ACL Group '
+            }).addTo(map);
+        }
 
-    <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}">s'inscrire à la sortie</a>
-    {% if app.user in sortie.participantList and not app.user == sortie.organisateur %}
-        <br><a href="{{ path('app_sortie_suppr', {'id': sortie.id}) }}">se désinscrire de la sortie</a>
-    {% endif %}
-
-    {{ include('sortie/_delete_form.html.twig') }}
-</div>
+        print()
+    </script>
 {% endblock %}

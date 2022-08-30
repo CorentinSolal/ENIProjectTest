@@ -2,7 +2,7 @@
 
 {% block title %}Activities planned{% endblock %}
 {% block stylesheet %}
-    <link rel="stylesheet" href="{{ asset('assets/css/card.css') }}">
+
 {% endblock %}
 
 {% block body %}
@@ -46,7 +46,7 @@
                             <p>Durée : {{ sortie.duree }} min</p>
                             <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
                             <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
-                            <a href="{{ path('app_sortie_ajout',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évênement</button></a>
+                            <a href="{{ path('app_sortie_show',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évênement</button></a>
                         </div>
                     </div>
                 </div>
