@@ -98,7 +98,6 @@ main{
     font-size: 14px;
     letter-spacing: 2px;
     cursor: pointer;
-    text-transform: uppercase;
     padding: 1rem;
     margin: 1rem;
 }
