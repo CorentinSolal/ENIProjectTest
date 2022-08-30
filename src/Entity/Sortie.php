@@ -250,7 +250,8 @@ class Sortie
 
     public function getUrlImage(): ?string
     {
-        return $this->urlImage;
+        is_null($this->urlImage) ? $image ='assets/images/default.jpg': $image = $this->urlImage;
+        return $image;
     }
 
     public function setUrlImage(?string $urlImage): self
