@@ -27,7 +27,7 @@
                 <p>Participants : </p>
                 <ul class="container" style="overflow: auto">
                     {% for participant in sortie.participantList %}
-                    <li>{{ participant.prenom }} {{ participant.nom}} </li>
+                        <li>{{ participant.prenom }} {{ participant.nom}} </li>
                     {% endfor %}
                 </ul>
             </div>
@@ -36,18 +36,23 @@
 
 
         </div>
-        <a href="{{ path('app_sortie_index') }}">back to list</a>
-
-        <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}">edit</a><br>
-
-        <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}">s'inscrire à la sortie</a>
-        {% if app.user in sortie.participantList and not app.user == sortie.organisateur %}
-            <br><a href="{{ path('app_sortie_suppr', {'id': sortie.id}) }}">se désinscrire de la sortie</a>
-        {% endif %}
-
-        {{ include('sortie/_delete_form.html.twig') }}
+        <div class="uk-flex uk-flex-center">
+            {% if app.user not in sortie.participantList %}
+            <a href="{{ path('app_sortie_ajout', {'id': sortie.id}) }}"><button class="glass-button">s'inscrire à la sortie</button></a>
+            {% endif %}
+            {% if app.user in sortie.participantList %}
+                <a href="{{ path('app_sortie_suppr', {'id': sortie.id}) }}"><button class="glass-button">se désinscrire de la sortie</button></a>
+            {% endif %}
+            {% if app.user == sortie.organisateur%}
+            <a href="{{ path('app_sortie_index') }}"><button class="glass-button">back to list</button></a>
+            <a href="{{ path('app_sortie_edit', {'id': sortie.id}) }}"><button class="glass-button">edit</button></a>
+            {% endif %}
+            {{ include('sortie/_delete_form.html.twig') }}
+        </div>
     </div>
 {% endblock %}
+
+
 {% block script %}
     <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
             integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
