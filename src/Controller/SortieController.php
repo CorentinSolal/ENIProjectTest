@@ -163,6 +163,9 @@ class SortieController extends AbstractController
      */
     public function ajout(Request $request, SortieRepository $sortieRepository,ManagerRegistry $doctrine, Sortie $sortie): Response
     {
+        $sortieCourante = $sortieRepository->findOneBy(['id'=>$sortie]);
+        $listeParticipant = $sortieCourante->getParticipantList();
+        $participantRestant = count($listeParticipant)-$sortieCourante->getNbInscriptionsMax();
         $id =$this->getUser()->getUserIdentifier();
         //$session = $request->getSession();
         //$id = $session->getId();
@@ -172,8 +175,10 @@ class SortieController extends AbstractController
 
         $sortie->addParticipantList($nouvParticipant);
         $sortieRepository->add($sortie, true);
+
         return $this->render('sortie/show.html.twig', [
             'sortie' => $sortie,
+            'participantRestant' => $participantRestant
         ]);
 
     }

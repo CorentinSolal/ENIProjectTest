@@ -46,6 +46,7 @@
                             <p>Durée : {{ sortie.duree }} min</p>
                             <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
                             <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
+                           <p>Places restantes : {{ sortie.participantRestant}} </p>
                             <a href="{{ path('app_sortie_show',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évênement</button></a>
                         </div>
                     </div>

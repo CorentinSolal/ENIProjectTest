@@ -22,7 +22,7 @@
                 <h3>{{ sortie.infosSortie }}</h3>
                 <p>Rendez-vous le <time>{{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</time></p>
                 <p>Durée : {{ sortie.duree }} min</p>
-                <p>Places restantes : {{ sortie.nbInscriptionsMax }}</p>
+                <p>Places restantes : {{ sortie.participantRestant }}</p>
                 <p>Date limite : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
                 <p>Participants : </p>
                 <ul class="container" style="overflow: auto">
