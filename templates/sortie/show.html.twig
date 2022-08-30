@@ -24,9 +24,11 @@
                 <p>Durée : {{ sortie.duree }} min</p>
                 <p>Places restantes : {{ sortie.nbInscriptionsMax }}</p>
                 <p>Date limite : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
-                <ul>
-                    {% for participant in sortie. %}
-                    <li>{{ participant.prenom }} </li>
+                <p>Participants : </p>
+                <ul class="container" style="overflow: auto">
+                    {% for participant in sortie.participantList %}
+                    <li>{{ participant.prenom }} {{ participant.nom}} </li>
+                    {% endfor %}
                 </ul>
             </div>
             <div class="uk-margin container" id="map"></div>
