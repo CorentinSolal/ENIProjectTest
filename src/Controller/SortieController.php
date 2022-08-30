@@ -226,11 +226,24 @@ class SortieController extends AbstractController
     /**
      * @Route("/{id}", name="app_sortie_delete", methods={"POST"})
      */
-    public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
+    public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository, ManagerRegistry $doctrine, EtatRepository $etatrepository): Response
     {
         if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
-            $sortieRepository->remove($sortie, true);
+            $sortie->setEtat($etatrepository->findOneBy(['libelle'=>'annulée']));
+
         }
+        //dd($sortie);
+        $entityManager = $doctrine->getManager();
+        $dql = "Update s from App\Entity\Sortie s
+            set s.etat_id = :etat
+            where s.id = :id;";
+        $query = $entityManager->createQuery($dql);
+        $query->setParameter('etat', $sortie->getEtat()->getId());
+        $query->setParameter('id', $sortie->getId());
+
+        $entityManager->persist($sortie);
+        $entityManager->flush();
+
 
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
     }
