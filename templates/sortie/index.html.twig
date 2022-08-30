@@ -9,6 +9,7 @@
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
     <div class="container">
+        {% if form2 is defined %}
         {{ form_start(form2) }}
         {{ form_widget(form2.campus) }}
         {{ form_widget(form2.nom) }}
@@ -25,6 +26,7 @@
         {{ form_widget(form2.rechercher) }}
         {{ form_widget(form2.reset) }}
         {{ form_end(form2) }}
+        {% endif %}
     </div>
 
 <div class="uk-flex uk-flex-center uk-margin" uk-grid>
