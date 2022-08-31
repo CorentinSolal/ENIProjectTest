@@ -61,8 +61,12 @@ main{
 }
 .glass-panel, .container {
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
-    margin: 2rem;
-    padding: 2rem 6rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-bottom: 1rem;
+
     height: auto;
     border-radius: 20px;
     border-left: 1px solid var(--transparant);
@@ -84,8 +88,9 @@ main{
     color: rgb(255, 255, 255);
     letter-spacing: 2px;
     cursor: pointer;
-    padding: 1rem;
-    margin: 1rem;
+    padding-left: 1rem;padding-right: 1rem;
+    margin:0.7rem;
+
 }
 .glass-button:hover {
     background-color: rgba(255,255,255,0.2);
