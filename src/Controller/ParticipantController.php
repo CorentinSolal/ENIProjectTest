@@ -4,10 +4,14 @@ namespace App\Controller;
 
 use App\Entity\Participant;
 use App\Form\ParticipantType;
+use App\Repository\CampusRepository;
 use App\Repository\ParticipantRepository;
 use App\Security\AppAuthAuthenticator;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -15,6 +19,9 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use function App\Fonctions\ecritureObjets;
+use function App\Fonctions\lectureCsv;
+
 
 
 /**
@@ -25,12 +32,37 @@ class ParticipantController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/", name="app_participant_index", methods={"GET"})
+     * @Route("/", name="app_participant_index", methods={"GET", "POST"})
      */
-    public function index(ParticipantRepository $participantRepository): Response
+    public function index(ParticipantRepository $participantRepository, UserPasswordHasherInterface $userPasswordHasher,  CampusRepository $campusRepository,Request $request): Response
     {
+        $form3 = $this->createFormBuilder()
+            ->add('ficcsv',FileType::class,['label' => 'Fichier des participants', 'mapped' => false, 'required' => false,'constraints' => [new File(['mimeTypes' => ['text/csv','text/plain']])], 'attr'=>['class'=>'glass-button uk-margin']])
+            ->add('envoyer', SubmitType::class,['attr'=>['class'=>'glass-button uk-margin']])
+            ->getForm();
+
+        $session = $request->getSession();
+        $form3->handleRequest($request);
+        if ($form3->isSubmitted() && $form3->isValid()) {
+
+            $ficCsv = $form3->get("ficcsv")->getData();
+            $donnees = lectureCsv($ficCsv);
+            //dd($donnees);
+            $nouvParti = ecritureObjets($donnees, $campusRepository);
+            foreach ($nouvParti as $participant){
+                $participant->setPassword(
+                    $userPasswordHasher->hashPassword(
+                        $participant, $participant->getPassword()
+                    )
+                );
+                $participantRepository->add($participant, true);
+            }
+        }
+
+
         return $this->render('participant/index.html.twig', [
             'participants' => $participantRepository->findAll(),
+            'form' => $form3->createView(),
         ]);
     }
 
@@ -78,4 +110,5 @@ class ParticipantController extends AbstractController
 
         return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
     }
+
 }
