@@ -5,16 +5,14 @@
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link rel="stylesheet" href="{{ asset('assets/css/uikit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('assets/css/card.css') }}">
     {% block stylesheet %} {% endblock %}
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.png') }}" />
     <script src="{{ asset('assets/js/uikit.js') }}" defer></script>
     <script src="{{ asset('assets/js/uikit-icons.js') }}" defer></script>
-    <script src="{{ asset('assets/js/script.js') }}" defer></script>
 </head>
 <body>
 <header>
-    <nav class="uk-navbar-container uk-navbar-transparent uk-margin uk-light navbar" uk-navbar="mode: click">
+    <nav class="uk-navbar-container uk-navbar-transparent  uk-light navbar" uk-navbar="mode: click">
         <div class="uk-navbar-center">
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
