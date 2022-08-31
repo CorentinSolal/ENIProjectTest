@@ -12,10 +12,10 @@
         {{ form_widget(registrationForm.prenom) }}
         {{ form_widget(registrationForm.telephone) }}
         {{ form_widget(registrationForm.mail) }}
-        {{ form_widget(registrationForm.plainPassword, {label: 'Password'}) }}
+        {{ form_widget(registrationForm.plainPassword) }}
         {{ form_widget(registrationForm.campus) }}
         <div>
-            <label class="uk-form-label required" for="registration_form_agreeTerms">Agree terms </label>
+            <label class="uk-form-label required uk-margin" for="registration_form_agreeTerms">Agree terms </label>
             {{ form_widget(registrationForm.agreeTerms) }}
         </div>
         <button type="submit" class="glass-button uk-margin">Register</button>

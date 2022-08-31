@@ -93,7 +93,7 @@ main{
 .input {
     text-align: center;
     background: transparent;
-    width: 200px;
+    width: auto;
     padding: 1em;
     margin-bottom: 2em;
     border: none;
@@ -102,11 +102,11 @@ main{
     border-radius: 5000px;
     backdrop-filter: blur(5px);
     box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
-    color: #fff;
     font-weight: 500;
     transition: all 0.2s ease-in-out;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
     outline-color: transparent;
+    color: white;
 }
 .navbar{
     border-bottom: 2px solid var(--transparant);

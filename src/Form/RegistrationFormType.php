@@ -23,25 +23,12 @@ class RegistrationFormType extends AbstractType
             ->add('telephone',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Telephone']])
             ->add('mail',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Mail']])
             ->add('campus',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Campus']])
-            ->add('plainPassword', RepeatedType::class,  [
-
-                // instead of being set onto the object directly,
-                // this is read and encoded in the controller
-                'type' =>PasswordType::class,
-                'first_options'  => ['attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Password']],
-                'second_options' => ['attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Repeat Password']],
+            ->add('plainPassword', RepeatedType::class,  ['type' =>PasswordType::class,
+                'first_options'  => ['label'=>' ','attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Password']],
+                'second_options' => ['label'=>' ','attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Repeat Password']],
                 'mapped' => false,
-
-                'constraints' => [
-                    new NotBlank([
-                        'message' => 'Please enter a password',
-                    ]),
-                    new Length([
-                        'min' => 6,
-                        'minMessage' => 'Your password should be at least {{ limit }} characters',
-                        // max length allowed by Symfony for security reasons
-                        'max' => 4096,
-                    ]),
+                'constraints' => [new NotBlank(['message' => 'Please enter a password',]),
+                    new Length(['min' => 6,'minMessage' => 'Your password should be at least {{ limit }} characters', 'max' => 4096,]),
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
