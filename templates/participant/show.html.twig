@@ -8,10 +8,10 @@
         <div class="uk-card-header">
             <div class="uk-grid-small uk-flex-middle" uk-grid>
                 <div class="uk-width-auto">
-                    <img class="uk-border-circle" width="128" height="128" src="{{ asset(image) }}" >
+                    <img class="pp" width="128" height="128" src="{{ asset(image) }}" >
                 </div>
                 <div class="uk-width-expand">
-                    <div class="uk-card-body uk-text-right">
+                    <div class="uk-card-body uk-text-center">
                         {% if is_granted('ROLE_ADMIN') %}
                             <p>Id : {{ participant.id }}</p>
                         {% endif %}
