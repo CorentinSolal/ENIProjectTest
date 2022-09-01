@@ -76,7 +76,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface, 
     private $campus;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @var string
      */
     private $image;
@@ -353,7 +353,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface, 
         return $this;
     }
 
-    public function serialize()
+    public function serialize(): ?string
     {
         return serialize(array(
             $this->id,
