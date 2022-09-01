@@ -28,7 +28,9 @@
                     </li>
                 </ul>
             </div>
-            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}"><img src="{{ asset('assets/images/logo-removebg-preview.png') }}" alt="" width="128px"></a>
+            <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">
+                <img src="{{ asset('assets/images/logo-removebg-preview.png') }}" width="128px"></img>
+            </a>
             <div class="uk-navbar-center-right">
                 <ul class="uk-navbar-nav">
                     {% if app.user %}
