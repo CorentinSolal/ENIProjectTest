@@ -9,6 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
@@ -16,7 +17,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *  @Vich\Uploadable
  * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -350,5 +351,30 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sortieParticipants->removeElement($sortieParticipant);
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->mail,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->imageFile));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->mail,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->imageFile
+            ) = unserialize($serialized);
     }
 }
