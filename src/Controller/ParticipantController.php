@@ -71,7 +71,6 @@ class ParticipantController extends AbstractController
      */
     public function show(Participant $participant): Response
     {
-
         return $this->render('participant/show.html.twig', [
             'participant' => $participant,
             'image' => 'assets/images/profil/'.$participant->getImage(),
