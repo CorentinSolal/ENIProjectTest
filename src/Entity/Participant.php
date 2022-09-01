@@ -9,12 +9,15 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=ParticipantRepository::class)
+ *  @Vich\Uploadable
  * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     /**
      * @ORM\Id
@@ -54,6 +57,8 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      */
     private $telephone;
 
+
+
     /**
      * @ORM\Column(type="boolean")
      */
@@ -69,6 +74,23 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\JoinColumn(nullable=false)
      */
     private $campus;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="profil", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
 
     /**
      * @ORM\OneToMany(targetEntity=Sortie::class, mappedBy="organisateur")
@@ -155,6 +177,34 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         $this->password = $password;
 
         return $this;
+    }
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
     }
 
     /**
@@ -301,5 +351,30 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface
         $this->sortieParticipants->removeElement($sortieParticipant);
 
         return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->mail,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->imageFile));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->mail,
+            $this->password,
+            $this->nom,
+            $this->prenom,
+            $this->telephone,
+            $this->imageFile
+            ) = unserialize($serialized);
     }
 }

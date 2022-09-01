@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class RegistrationFormType extends AbstractType
 {
@@ -31,6 +32,7 @@ class RegistrationFormType extends AbstractType
                     new Length(['min' => 6,'minMessage' => 'Your password should be at least {{ limit }} characters', 'max' => 4096,]),
                 ],
             ])
+
             ->add('agreeTerms', CheckboxType::class, [
                 'attr'=>['class' =>'uk-checkbox'],
                 'mapped' => false,
@@ -40,6 +42,7 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('imageFile',VichImageType::class)
         ;
     }
 

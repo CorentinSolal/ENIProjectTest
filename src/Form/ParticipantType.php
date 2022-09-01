@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Vich\UploaderBundle\Form\Type\VichImageType;
 
 class ParticipantType extends AbstractType
 {
@@ -22,6 +23,7 @@ class ParticipantType extends AbstractType
             /*->add('administrateur')*/
             /*->add('actif')*/
             ->add('campus',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
+            ->add('imageFile',VichImageType::class)
             /*->add('sortieParticipants')*/
         ;
     }
