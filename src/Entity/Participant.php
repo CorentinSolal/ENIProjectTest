@@ -88,7 +88,7 @@ class Participant implements UserInterface, PasswordAuthenticatedUserInterface, 
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
     private $updatedAt;
 
