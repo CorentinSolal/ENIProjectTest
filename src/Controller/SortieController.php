@@ -51,6 +51,10 @@ class SortieController extends AbstractController
         $session = $request->getSession();
         $form2->handleRequest($request);
 
+        $id =$this->getUser()->getUserIdentifier();
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
+        $mecConnecte = $repoParticipant->findOneBy(['mail' => $id ]);
+
         if ($form2->isSubmitted() && $form2->isValid()  && !$form2->get('reset')->isClicked()) {
 
             $retour_form = $form2->getViewData();
@@ -63,11 +67,6 @@ class SortieController extends AbstractController
             $inscrit =  $retour_form["inscrit"];
             $non_inscrit =  $retour_form["non_inscrit"];
             $passees =  $retour_form["passees"];
-
-            $id =$this->getUser()->getUserIdentifier();
-            $repoParticipant = $doctrine->getRepository(Participant ::class);
-            $mecConncete = $repoParticipant->findOneBy(['mail' => $id ]);
-            //dd($campus);
 
             $entityManager = $doctrine->getManager();
             $dql = "Select s from App\Entity\Sortie s
@@ -95,9 +94,9 @@ class SortieController extends AbstractController
             $query->setParameter('nom', '%'.$nom.'%');
             $query->setParameter('date1', $date1);
             $query->setParameter('date2', $date2);
-            !$orga ? :$query->setParameter('mecConnecte1', $mecConncete);
-            $inscrit ? :$query->setParameter('mecConnecte2', $mecConncete);
-            $non_inscrit ? :$query->setParameter('mecConnecte3', $mecConncete);
+            !$orga ? :$query->setParameter('mecConnecte1', $mecConnecte);
+            $inscrit ? :$query->setParameter('mecConnecte2', $mecConnecte);
+            $non_inscrit ? :$query->setParameter('mecConnecte3', $mecConnecte);
             $passees ? :$query->setParameter('valEtat', $etat);
 
             $sorties = $query->getResult();
@@ -108,6 +107,7 @@ class SortieController extends AbstractController
             return $this->renderForm('sortie/index.html.twig', [
                 'sorties' => $sorties,
                 'form2' => $form2,
+                'mecConnecte' => $mecConnecte,
             ]);
         }
 
@@ -115,6 +115,7 @@ class SortieController extends AbstractController
         return $this->renderForm('sortie/index.html.twig', [
             'sorties' => $sortieRepository->findAll(),
             'form2' => $form2,
+            'mecConnecte' => $mecConnecte,
         ]);
     }
 
@@ -204,23 +205,34 @@ class SortieController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="app_sortie_edit", methods={"GET", "POST"})
+     * @Route("/edit/{id}", name="app_sortie_edit", methods={"GET", "POST"})
      */
-    public function edit(Request $request, Sortie $sortie, SortieRepository $sortieRepository): Response
+    public function edit(Request $request, Sortie $sortie, ManagerRegistry $doctrine, SortieRepository $sortieRepository): Response
     {
-        $form = $this->createForm(SortieType::class, $sortie);
-        $form->handleRequest($request);
+        $id =$this->getUser()->getUserIdentifier();
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
+        $mecConnecte = $repoParticipant->findOneBy(['mail' => $id ]);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $sortieRepository->add($sortie, true);
+        if ($mecConnecte ==$sortie->getOrganisateur()) {
+            $form = $this->createForm(SortieType::class, $sortie);
+            $form->handleRequest($request);
 
-            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $sortieRepository->add($sortie, true);
+
+                return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+            }
+
+            return $this->renderForm('sortie/edit.html.twig', [
+                'sortie' => $sortie,
+                'form' => $form,
+            ]);
         }
+        $session = $request->getSession();
+        $session->getFlashBag()->add('notice', "Tu n'as pas le droit de faire cette modification co*");
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
 
-        return $this->renderForm('sortie/edit.html.twig', [
-            'sortie' => $sortie,
-            'form' => $form,
-        ]);
+
     }
 
     /**
@@ -228,24 +240,33 @@ class SortieController extends AbstractController
      */
     public function delete(Request $request, Sortie $sortie, SortieRepository $sortieRepository, ManagerRegistry $doctrine, EtatRepository $etatrepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$sortie->getId(), $request->request->get('_token'))) {
-            $sortie->setEtat($etatrepository->findOneBy(['libelle'=>'annulée']));
+        $id =$this->getUser()->getUserIdentifier();
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
+        $mecConnecte = $repoParticipant->findOneBy(['mail' => $id ]);
 
-        }
-        //dd($sortie);
-        $entityManager = $doctrine->getManager();
-        $dql = "Update s from App\Entity\Sortie s
+        if ($mecConnecte ==$sortie->getOrganisateur()) {
+            if ($this->isCsrfTokenValid('delete' . $sortie->getId(), $request->request->get('_token'))) {
+                $sortie->setEtat($etatrepository->findOneBy(['libelle' => 'annulée']));
+
+            }
+            //dd($sortie);
+            $entityManager = $doctrine->getManager();
+            $dql = "Update s from App\Entity\Sortie s
             set s.etat_id = :etat
             where s.id = :id;";
-        $query = $entityManager->createQuery($dql);
-        $query->setParameter('etat', $sortie->getEtat()->getId());
-        $query->setParameter('id', $sortie->getId());
+            $query = $entityManager->createQuery($dql);
+            $query->setParameter('etat', $sortie->getEtat()->getId());
+            $query->setParameter('id', $sortie->getId());
 
-        $entityManager->persist($sortie);
-        $entityManager->flush();
+            $entityManager->persist($sortie);
+            $entityManager->flush();
 
-
+            return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+        }
+        $session = $request->getSession();
+        $session->getFlashBag()->add('notice', "Tu n'as pas le droit de faire cette suppression co*");
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+
     }
 
     /**
@@ -281,5 +302,6 @@ class SortieController extends AbstractController
             'sorties' =>$ens_sortie,
         ]);
     }
+
 
 }

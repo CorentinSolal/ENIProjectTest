@@ -1,11 +1,19 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Activities planned{% endblock %}
 {% block stylesheet %}
 
 {% endblock %}
 
 {% block body %}
+    {% for label, flashes in app.session.flashbag.all %}
+        {% for flash in flashes %}
+            <h2 style="color:red">
+                {{ flash }}
+            </h2>
+        {% endfor %}
+    {% endfor %}
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
     <h1 class="uk-light uk-text-center">Activities planned</h1>
 
@@ -42,34 +50,45 @@
     <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1" uk-slider>
         <ul class="uk-slider-items uk-child-width-1-1 uk-child-width-1-2@m uk-child-width-1-3@l uk-grid">
             {% for sortie in sorties %}
-                <li>
-                    <div class="uk-panel uk-flex-center uk-flex">
-                        <div class="card " id="card">
-                            <div class="card__inner ">
-                                <div class="card__face card__face--front">
-                                    <h2 class="uk-text-center">{{ sortie.nom }}</h2>
-                                </div>
-                                <div class="card__face card__face--back">
-                                    <div class="card__content">
-                                        <div class="card__header">
-                                            <img src="{{ asset(sortie.urlImage) }}" alt="" class="pp" />
-                                            <h2>{{ sortie.nom }}</h2>
-                                        </div>
-                                        <div class="card__body">
-                                            <h3>{{ sortie.infosSortie }}</h3>
-                                            <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
-                                            <p>Durée : {{ sortie.duree }} min</p>
-                                            <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
-                                            <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
-                                            <p>Places restantes : {{ sortie.participantRestant}} </p>
-                                            <a href="{{ path('app_sortie_show',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évênement</button></a>
+                    {% if sortie.etat.id<5 %}
+                    <li>
+                        <div class="uk-panel uk-flex-center uk-flex">
+                            <div class="card " id="card">
+                                <div class="card__inner ">
+                                    <div class="card__face card__face--front">
+                                        <h2 class="uk-text-center">{{ sortie.nom }}</h2>
+                                    </div>
+                                    <div class="card__face card__face--back">
+                                        <div class="card__content">
+                                            <div class="card__header">
+                                                <img src="{{ asset(sortie.urlImage) }}" alt="" class="pp" />
+                                                <h2>{{ sortie.nom }}</h2>
+                                            </div>
+                                            <div class="card__body">
+                                                <h3>{{ sortie.infosSortie }}</h3>
+                                                <p>Date : {{ sortie.dateHeureDebut ? sortie.dateHeureDebut|date('d-m-Y h:i') : '' }}</p>
+                                                <p>Durée : {{ sortie.duree }} min</p>
+                                                <p>Date limite d'inscription : {{ sortie.dateLimiteInscription ? sortie.dateLimiteInscription|date('d-m-Y') : '' }}</p>
+                                                <p>Nb inscription max : {{ sortie.nbInscriptionsMax }}</p>
+                                                <p>Places restantes : {{ sortie.participantRestant}} </p>
+                                                <p>Satut : {{ sortie.etat.libelle}} </p>
+                                                <a href="{{ path('app_sortie_show',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Afficher la sortie</button></a>
+                                                {%  if (mecConnecte == sortie.organisateur and sortie.etat.id == 1) %}
+                                                    <a href="{{ path('app_sortie_edit',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Modifier ma sortie</button></a>
+                                                {% endif %}
+                                                {%  if (mecConnecte in sortie.participantList and mecConnecte != sortie.organisateur ) %}
+                                                    <a href="{{ path('app_sortie_suppr',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Se désister</button></a>
+                                                {%  elseif (mecConnecte != sortie.organisateur ) %}
+                                                    <a href="{{ path('app_sortie_ajout',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évènement</button></a>
+                                                {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </li>
+                    </li>
+                {% endif %}
             {% endfor %}
         </ul>
         <a class="uk-position-center-left uk-position-small uk-hidden-hover" href="#" uk-slidenav-previous uk-slider-item="previous"></a>
