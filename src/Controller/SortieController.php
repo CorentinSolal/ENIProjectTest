@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Participant;
 use App\Entity\Sortie;
 use App\Form\CampusType;
@@ -205,6 +206,35 @@ class SortieController extends AbstractController
     }
 
     /**
+     * @Route("/publier/{id}", name="app_sortie_publier", methods={"GET", "POST"})
+     */
+    public function publication(Request $request, SortieRepository $sortieRepository,ManagerRegistry $doctrine, Sortie $sortie, EtatRepository $etatRepository): Response
+    {
+        $id =$this->getUser()->getUserIdentifier();
+        $repoParticipant = $doctrine->getRepository(Participant ::class);
+        $mecConnecte = $repoParticipant->findOneBy(['mail' => $id ]);
+
+        if ($mecConnecte ==$sortie->getOrganisateur()) {
+            $id = $this->getUser()->getUserIdentifier();
+            //$session = $request->getSession();
+            //$id = $session->getId();
+            //dd($id);
+            $repoParticipant = $doctrine->getRepository(Participant ::class);
+            $ancParticipant = $repoParticipant->findOneBy(['mail' => $id]);
+
+            $sortie->setEtat($etatRepository->findOneBy(['id' => 2]));
+            $sortieRepository->add($sortie, true);
+            return $this->render('sortie/show.html.twig', [
+                'sortie' => $sortie,
+            ]);
+        }
+        $session = $request->getSession();
+        $session->getFlashBag()->add('notice', "Tu n'as pas le droit de faire cette publication chouchou");
+        return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
+
+    }
+
+    /**
      * @Route("/edit/{id}", name="app_sortie_edit", methods={"GET", "POST"})
      */
     public function edit(Request $request, Sortie $sortie, ManagerRegistry $doctrine, SortieRepository $sortieRepository): Response
@@ -231,8 +261,6 @@ class SortieController extends AbstractController
         $session = $request->getSession();
         $session->getFlashBag()->add('notice', "Tu n'as pas le droit de faire cette modification co*");
         return $this->redirectToRoute('app_sortie_index', [], Response::HTTP_SEE_OTHER);
-
-
     }
 
     /**

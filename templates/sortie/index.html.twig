@@ -75,6 +75,7 @@
                                                 <a href="{{ path('app_sortie_show',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Afficher la sortie</button></a>
                                                 {%  if (mecConnecte == sortie.organisateur and sortie.etat.id == 1) %}
                                                     <a href="{{ path('app_sortie_edit',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Modifier ma sortie</button></a>
+                                                    <a href="{{ path('app_sortie_publier',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Publier ma sortie</button></a>
                                                 {% endif %}
                                                 {%  if (mecConnecte in sortie.participantList and mecConnecte != sortie.organisateur ) %}
                                                     <a href="{{ path('app_sortie_suppr',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Se désister</button></a>
