@@ -62,7 +62,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/migrations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/doctrine-migrations-bundle" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/common" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/phpspec/prophecy" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/cache-contracts" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/deprecation-contracts" />
