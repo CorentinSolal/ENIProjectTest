@@ -37,7 +37,7 @@ html, body{
     background-size: cover;
 }
 main{
-    margin: 2rem;
+    margin: 3rem;
 }
 .plus-button {
     border: 2px solid lightgrey;
@@ -157,9 +157,8 @@ a:hover {color:white}
     display: table-row-group;
 }
 .card {
-    margin-top: 2rem;
-    margin-bottom: 2rem;
-    margin: 1rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
     width: 350px;
     height: 500px;
     perspective: 1000px;

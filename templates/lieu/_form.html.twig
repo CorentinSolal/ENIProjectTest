@@ -3,6 +3,9 @@
     {{ form_widget(form.rue) }}
     {{ form_widget(form.latitude) }}
     {{ form_widget(form.longitude) }}
-    {{ form_widget(form.ville) }}
+<div uk-grid>
+    <div class="uk-width-expand">{{ form_widget(form.ville) }}</div>
+    <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_ville_new') }}"><button type="button" class="plus-button"></button></a></div>
+</div>
 <button class="glass-button">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

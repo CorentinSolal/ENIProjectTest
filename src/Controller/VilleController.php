@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @IsGranted("ROLE_ADMIN")
  * @Route("/ville")
  */
 class VilleController extends AbstractController
