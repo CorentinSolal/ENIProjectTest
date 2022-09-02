@@ -6,25 +6,24 @@
     <div class="container">
         <h1 class="uk-card-title">Mon profil</h1>
         <div class="uk-card-header">
-            <div class="uk-grid-small uk-flex-middle uk-child-width-auto" uk-grid>
-                <div class="uk-width-auto">
+            <div class="uk-child-width-1-2" uk-grid>
+                <div class="">
                     <img class="pp" width="128" height="128" src="{{ asset(image) }}" >
                 </div>
-
                 <div class="uk-width-expand">
                     <div class="uk-card-body ">
                         <div>
-                            <div uk-grid>
-                                {% if is_granted('ROLE_ADMIN') %}
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div uk-grid>
                                     <p>Id : </p>
                                     <p>{{ participant.id }}</p>
-                                {% endif %}
-                            </div>
+                                </div>
+                            {% endif %}
                             <div uk-grid>
                                 <p>Nom : </p>
                                 <p>{{ participant.nom }}</p>
                             </div>
-                            <div uk-grid>
+                            <div class="" uk-grid>
                                 <p>Prenom : </p>
                                 <p>{{ participant.prenom }}</p>
                             </div>
