@@ -38,7 +38,7 @@ class SortieController extends AbstractController
     public function index(Request $request, ManagerRegistry $doctrine, SortieRepository $sortieRepository, CampusRepository $campusRepository, EtatRepository $etatRepository): Response
     {
         $form2 = $this->createFormBuilder()
-            ->add('campus',TextType::class,['required' => false, 'attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
+            ->add('campus',null,['required' => true, 'attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
             ->add('nom',TextType::class,['required' => false, 'empty_data' => '','attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Nom']])
             ->add('date1',DateTimeType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin'],'data' => date_create('now')])
             ->add('date2',DateTimeType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin'],'data' => date_create('now +1year')])

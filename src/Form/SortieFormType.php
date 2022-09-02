@@ -22,23 +22,9 @@ class SortieFormType extends AbstractType
             ->add('nom',null, ['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
             ->add('date_heure_debut', DateType::class, ['label' => 'entre'])
             ->add('date_heure_debut', DateType::class, ['label' => 'et'])
-            ->add('organisateur', CheckboxType::class, [
-                'label' => 'Sorties dont je suis l\'organisateur/trice' ,
-                'required' => false, 'data' => true
-
-            ])
-            ->add('isParticipant', ChoiceType::class, [
-                'multiple' => true, 'expanded' => true, 'choices' => [
-                    'Sorties auxquelles je suis inscrit/e' => true,
-                    'Sorties auxquelles je ne suis pas inscrit/e' => false,
-                ],
-            ])
-
-            ->add('etat', CheckboxType::class, [
-                'label'    => 'Sorties passées',
-                'required' => false,
-            ])
-
+            ->add('organisateur', CheckboxType::class, ['label' => 'Sorties dont je suis l\'organisateur/trice', 'required' => false, 'data' => true])
+            ->add('isParticipant', ChoiceType::class, ['multiple' => true, 'expanded' => true, 'choices' => ['Sorties auxquelles je suis inscrit/e' => true, 'Sorties auxquelles je ne suis pas inscrit/e' => false,],])
+            ->add('etat', CheckboxType::class, ['label'    => 'Sorties passées', 'required' => false,])
         ;
     }
 
