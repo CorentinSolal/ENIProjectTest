@@ -1,4 +1,13 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>
+    {{ form_widget(form.mail) }}
+    {{ form_widget(form.password) }}
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.prenom) }}
+    {{ form_widget(form.telephone) }}
+    {{ form_widget(form.campus) }}
+    {{ form_widget(form.imageFile) }}
+
+    {% if participant.id==app.user.id %}
+        <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>
+    {% endif %}
 {{ form_end(form) }}

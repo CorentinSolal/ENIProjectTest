@@ -6,6 +6,7 @@ use App\Repository\ParticipantRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Serializable;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -17,7 +18,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  *  @Vich\Uploadable
  * @UniqueEntity(fields={"mail"}, message="There is already an account with this mail")
  */
-class Participant implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
+class Participant implements UserInterface, PasswordAuthenticatedUserInterface, Serializable
 {
     /**
      * @ORM\Id

@@ -56,12 +56,14 @@
                     <a href="{{ path('app_participant_index') }}"><button class="glass-button">Back to list</button></a>
                 {% endif %}
             </div>
-            <div>
-                <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="glass-button">Edit</button></a>
-            </div>
-            <div>
-                {{ include('participant/_delete_form.html.twig') }}
-            </div>
+
+                <div>
+                    <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="glass-button">Edit</button></a>
+                </div>
+                <div>
+                    {{ include('participant/_delete_form.html.twig') }}
+                </div>
+
         </div>
     </div>
 

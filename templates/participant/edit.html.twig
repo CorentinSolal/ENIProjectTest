@@ -11,7 +11,9 @@
             {% if is_granted('ROLE_ADMIN') %}
                 <a href="{{ path('app_participant_index') }}">back to list</a>
             {% endif %}
-            {{ include('participant/_delete_form.html.twig') }}
+            {% if participant.id==app.user.id %}
+                {{ include('participant/_delete_form.html.twig') }}
+            {% endif %}
         </div>
     </div>
 {% endblock %}
