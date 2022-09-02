@@ -6,31 +6,33 @@
     <div class="container">
         <h1>Create new Sortie</h1>
 
-        {{ form_start(form) }}
-        {{ form_widget(form.nom) }}
-        <div uk-grid>
-            <div class="uk-width-auto uk-light uk-margin-top"><p>Date de début:</p></div>
-            <div class="uk-width-expand">{{ form_widget(form.dateHeureDebut) }}</div>
-        </div>
-        {{ form_widget(form.duree) }}
-        <div uk-grid>
-            <div class="uk-width-auto uk-light uk-margin-top"><p>Date de fin d'enregistrement:</p></div>
-            <div class="uk-width-expand">{{ form_widget(form.dateLimiteInscription) }}</div>
-        </div>
-        {{ form_widget(form.nbInscriptionsMax) }}
-        {{ form_widget(form.infosSortie) }}
-        {{ form_widget(form.urlImage) }}
-        <div uk-grid>
-            <div class="uk-width-expand">{{ form_widget(form.campus) }}</div>
-            <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_campus_new') }}"><button type="button" class="plus-button"></button></a></div>
-        </div>
-        <div uk-grid>
-            <div class="uk-width-expand">{{ form_widget(form.lieu) }}</div>
-            <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_lieu_new') }}"><button type="button" class="plus-button"></button></a></div>
-        </div>
-        {{ form_widget(form.etat) }}
-        <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>
-        {{ form_end(form) }}
+        {{ include('sortie/_form.html.twig')}}
+
+{#        {{ form_start(form) }}#}
+{#        {{ form_widget(form.nom) }}#}
+{#        <div uk-grid>#}
+{#            <div class="uk-width-auto uk-light uk-margin-top"><p>Date de début:</p></div>#}
+{#            <div class="uk-width-expand">{{ form_widget(form.dateHeureDebut) }}</div>#}
+{#        </div>#}
+{#        {{ form_widget(form.duree) }}#}
+{#        <div uk-grid>#}
+{#            <div class="uk-width-auto uk-light uk-margin-top"><p>Date de fin d'enregistrement:</p></div>#}
+{#            <div class="uk-width-expand">{{ form_widget(form.dateLimiteInscription) }}</div>#}
+{#        </div>#}
+{#        {{ form_widget(form.nbInscriptionsMax) }}#}
+{#        {{ form_widget(form.infosSortie) }}#}
+{#        {{ form_widget(form.urlImage) }}#}
+{#        <div uk-grid>#}
+{#            <div class="uk-width-expand">{{ form_widget(form.campus) }}</div>#}
+{#            <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_campus_new') }}"><button type="button" class="plus-button"></button></a></div>#}
+{#        </div>#}
+{#        <div uk-grid>#}
+{#            <div class="uk-width-expand">{{ form_widget(form.lieu) }}</div>#}
+{#            <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_lieu_new') }}"><button type="button" class="plus-button"></button></a></div>#}
+{#        </div>#}
+{#        {{ form_widget(form.etat) }}#}
+{#        <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>#}
+{#        {{ form_end(form) }}#}
 
 
         <a href="{{ path('app_sortie_index') }}">back to list</a>

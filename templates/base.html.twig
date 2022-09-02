@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="{{ asset('assets/css/uikit.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
     {% block stylesheet %} {% endblock %}
-    <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon-32x32.png') }}" />
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo-removebg-preview.png') }}" />
     <script src="{{ asset('assets/js/uikit.js') }}" defer></script>
     <script src="{{ asset('assets/js/uikit-icons.js') }}" defer></script>
 </head>
@@ -17,25 +17,29 @@
             <div class="uk-navbar-center-left">
                 <ul class="uk-navbar-nav">
                     <li>
-                        <a href="{{ path('app_sortie_index') }}">Activities<span uk-navbar-parent-icon></span></a>
+                        <a href="#">Activités<span uk-navbar-parent-icon></span></a>
                         <div class="uk-navbar-dropdown">
                             <ul class="uk-nav uk-navbar-dropdown-nav">
-                                <li><a href="{{ path('app_campus_index') }}">Campus</a></li>
-                                <li><a href="{{ path('app_ville_index') }}">Cities</a></li>
-                                <li><a href="{{ path('app_lieu_index') }}">Lieux</a></li>
+                                <li><a href="{{ path('app_sortie_index') }}"> Voir les activités</a></li>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <li class="uk-nav-divider"></li>
+                                    <li><a href="{{ path('app_campus_index') }}">Campus</a></li>
+                                    <li><a href="{{ path('app_ville_index') }}">Villes</a></li>
+                                    <li><a href="{{ path('app_lieu_index') }}">Lieux</a></li>
+                                {% endif %}
                             </ul>
                         </div>
                     </li>
                 </ul>
             </div>
             <a class="uk-navbar-item uk-logo" href="{{ path('app_home') }}">
-                <img src="{{ asset('assets/images/logo-removebg-preview.png') }}" width="128px"></img>
+                <img src="{{ asset('assets/images/logo-removebg-preview.png') }}" width="100px"></img>
             </a>
             <div class="uk-navbar-center-right">
                 <ul class="uk-navbar-nav">
                     {% if app.user %}
                         <li>
-                            <a href="#">Welcome {{ app.user.prenom }} <span uk-navbar-parent-icon></span></a>
+                            <a href="#">Bonjour {{ app.user.prenom }} <span uk-navbar-parent-icon></span></a>
                             <div class="uk-navbar-dropdown">
                                 <ul class="uk-nav uk-navbar-dropdown-nav">
                                     <li><a href="{{ path('app_participant_show',{ 'id' :app.user.id }) }}">Mon profil</a></li>
@@ -44,7 +48,7 @@
                             </div>
                         </li>
                     {% else %}
-                        <li><a href="{{ path('app_login') }}">Sign In / Sign Up</a></li>
+                        <li><a href="{{ path('app_login') }}">Se connecter / S'inscrire</a></li>
                     {% endif %}
                 </ul>
             </div>

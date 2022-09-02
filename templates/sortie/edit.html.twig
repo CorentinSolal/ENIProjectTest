@@ -4,10 +4,12 @@
 
 {% block body %}
     <h1>Edit Sortie</h1>
+    <div class="container">
 
     {{ include('sortie/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('sortie/_delete_form.html.twig') }}
 
     <a href="{{ path('app_sortie_index') }}">back to list</a>
 
-    {{ include('sortie/_delete_form.html.twig') }}
+    </div>
 {% endblock %}

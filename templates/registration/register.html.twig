@@ -4,22 +4,35 @@
 
 {% block body %}
     <div class="container">
-        <h1>Register</h1>
-
-        {{ form_start(registrationForm) }}
-
-        {{ form_widget(registrationForm.nom) }}
-        {{ form_widget(registrationForm.prenom) }}
-        {{ form_widget(registrationForm.telephone) }}
-        {{ form_widget(registrationForm.mail) }}
-        {{ form_widget(registrationForm.plainPassword) }}
-        {{ form_widget(registrationForm.campus) }}
-       {{ form_widget(registrationForm.imageFile) }}
-        <div>
-            <label class="uk-form-label required uk-margin" for="registration_form_agreeTerms">Agree terms </label>
-            {{ form_widget(registrationForm.agreeTerms) }}
+        <h1 class="">Register</h1>
+        <div class="container" uk-grid>
+            <br>
+            {{ form_start(registrationForm) }}
+            <div uk-grid>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.nom) }}</div>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.prenom) }}</div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.telephone) }}</div>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.mail) }}</div>
+            </div>
+            <div uk-grid>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.plainPassword.first) }}</div>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.plainPassword.second) }}</div>
+            </div>
+            <div uk-grid>
+                <p class="uk-width-1-2">Choisir son campus :</p>
+                <div class="uk-width-1-2">{{ form_widget(registrationForm.campus) }}</div>
+            </div>
+            <br>
+            {{ form_widget(registrationForm.imageFile) }}
+            <br>
+            <div>
+                <label class="uk-form-label required uk-margin" for="registration_form_agreeTerms">Agree terms </label>
+                {{ form_widget(registrationForm.agreeTerms) }}
+            </div>
+            <button type="submit" class="glass-button uk-margin">Register</button>
+            {{ form_end(registrationForm) }}
         </div>
-        <button type="submit" class="glass-button uk-margin">Register</button>
-        {{ form_end(registrationForm) }}
     </div>
 {% endblock %}

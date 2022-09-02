@@ -19,14 +19,14 @@ class RegistrationFormType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('nom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder' => 'Nom']])
-            ->add('prenom',null,['attr'=>['class' => 'glass-button uk-margin', 'placeholder'=>'Prenom']])
-            ->add('telephone',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Telephone']])
-            ->add('mail',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Mail']])
-            ->add('campus',null,['attr'=>['class' => 'glass-button uk-margin','placeholder'=>'Campus']])
+            ->add('nom',null,['attr'=>['class' => 'input', 'placeholder' => 'Nom']])
+            ->add('prenom',null,['attr'=>['class' => 'input', 'placeholder'=>'Prenom']])
+            ->add('telephone',null,['attr'=>['class' => 'input','placeholder'=>'Telephone']])
+            ->add('mail',null,['attr'=>['class' => 'input','placeholder'=>'Mail']])
+            ->add('campus',null,['attr'=>['class' => 'input','placeholder'=>'Campus']])
             ->add('plainPassword', RepeatedType::class,  ['type' =>PasswordType::class,
-                'first_options'  => ['label'=>' ','attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Password']],
-                'second_options' => ['label'=>' ','attr' => ['class' => 'glass-button uk-margin', 'placeholder' => 'Repeat Password']],
+                'first_options'  => ['label'=>' ','attr' => ['class' => 'input', 'placeholder' => 'Password']],
+                'second_options' => ['label'=>' ','attr' => ['class' => 'input', 'placeholder' => 'Repeat Password']],
                 'mapped' => false,
                 'constraints' => [new NotBlank(['message' => 'Please enter a password',]),
                     new Length(['min' => 6,'minMessage' => 'Your password should be at least {{ limit }} characters', 'max' => 4096,]),

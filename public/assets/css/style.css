@@ -24,6 +24,9 @@
 }
 ::-webkit-datetime-edit-fields-wrapper{
 }
+h1, h2, h3 {
+    color: white;
+}
 html, body{
     height: 100%;
     /*background-image: linear-gradient(60deg, var(--background-first), var(--background-second)) no-repeat center center fixed;*/
@@ -78,21 +81,29 @@ main{
     justify-content: center;
 }
 .glass-button {
+    text-align: center;
     display: inline-block;
     min-height: 50px;
-    text-decoration: none;
-    border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(255,255,255,0.1);
-    backdrop-filter: blur(30px);
-    color: rgb(255, 255, 255);
+    background: transparent;
+    border: none;
+    border-left: 1px solid var(--transparant);
+    border-top: 1px solid var(--transparant);
+    border-radius: 5000px;
+    backdrop-filter: blur(5px);
+    box-shadow: 4px 4px 60px rgba(0, 0, 0, 0.2);
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    outline-color: transparent;
     letter-spacing: 2px;
     cursor: pointer;
     padding-left: 1rem;padding-right: 1rem;
-    margin:fill;
+    margin:10px;
+    color: white;
 }
 .glass-button:hover {
     background-color: rgba(255,255,255,0.2);
+    color: white;
 }
 .input {
     text-align: center;
@@ -146,6 +157,8 @@ a:hover {color:white}
     display: table-row-group;
 }
 .card {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
     margin: 1rem;
     width: 350px;
     height: 500px;
