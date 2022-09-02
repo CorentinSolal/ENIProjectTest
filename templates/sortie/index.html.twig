@@ -9,9 +9,10 @@
 {% block body %}
     {% for label, flashes in app.session.flashbag.all %}
         {% for flash in flashes %}
-            <h2 style="color:red">
-                {{ flash }}
-            </h2>
+            <div class="uk-alert-danger uk-text-center alert"  uk-alert>
+                <a class="uk-alert-close" uk-close></a>
+            <h2>{{ flash }}</h2>
+            </div>
         {% endfor %}
     {% endfor %}
     {#    {{ include('sortie/_form2.html.twig', {'button_label': 'Update'}) }}#}
@@ -83,7 +84,7 @@
                                                 {% endif %}
                                                 {%  if (mecConnecte in sortie.participantList and mecConnecte != sortie.organisateur ) %}
                                                     <a href="{{ path('app_sortie_suppr',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">Se désister</button></a>
-                                                {%  elseif (mecConnecte != sortie.organisateur ) %}
+                                                {%  elseif (mecConnecte != sortie.organisateur )and (sortie.etat.id==2 or sortie.etat.id== 4) %}
                                                     <a href="{{ path('app_sortie_ajout',{'id':sortie.id}) }}"><button class="glass-button uk-flex uk-flex-center">S'inscrire à l'évènement</button></a>
                                                 {% endif %}
                                             </div>
