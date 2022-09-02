@@ -17,6 +17,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ResetType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -39,8 +40,8 @@ class SortieController extends AbstractController
         $form2 = $this->createFormBuilder()
             ->add('campus',TextType::class,['required' => false, 'attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Campus']])
             ->add('nom',TextType::class,['required' => false, 'empty_data' => '','attr'=>['class'=>'glass-button uk-margin', 'placeholder'=>'Nom']])
-            ->add('date1',DateType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
-            ->add('date2',DateType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
+            ->add('date1',DateTimeType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
+            ->add('date2',DateTimeType::class,['required' => false, 'widget'=>'single_text','attr'=>['class' => 'glass-button uk-margin']])
             ->add('organisateur',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox']])
             ->add('inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox'],'data'=> true])
             ->add('non_inscrit',CheckboxType::class,['required' => false,'attr'=>['class'=>'uk-checkbox'],'data'=> true])
@@ -75,16 +76,14 @@ class SortieController extends AbstractController
             and s.nom like :nom AND s.dateHeureDebut >= :date1
             and s.dateHeureDebut <= :date2";
 
-
-
             if ($orga){
                 $dql .= " and s.organisateur = :mecConnecte1";}
 
             if (!$inscrit){
-                $dql .= " and :mecConnecte2 member of s.participantList";}
+                $dql .= " and :mecConnecte2 not member of s.participantList";}
 
             if (!$non_inscrit){
-                $dql .= " and :mecConnecte3 not member of s.participantList";}
+                $dql .= " and :mecConnecte3 member of s.participantList";}
 
             if (!$passees){
                 $etat = $etatRepository->findBy(['id' => [1,2,3,4]]);
