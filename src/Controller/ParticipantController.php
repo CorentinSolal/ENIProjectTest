@@ -91,13 +91,10 @@ class ParticipantController extends AbstractController
             );
             $participantRepository->add($participant, true);
 
-            return $this->redirectToRoute('app_participant_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_home',[],Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('participant/edit.html.twig', [
-            'participant' => $participant,
-            'form' => $form,
-        ]);
+        return $this->renderForm('participant/edit.html.twig', ['participant' => $participant, 'form' => $form,]);
     }
 
     /**

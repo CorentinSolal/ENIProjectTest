@@ -1,24 +1,30 @@
 {{ form_start(form) }}
-    {{ form_widget(form.nom) }}
-<div class="uk-flex">
+        {{ form_widget(form.nom) }}
+<div uk-grid>
+    <div class="uk-width-auto uk-light uk-margin-top"><p>Date de début :</p></div>
+    <div class="uk-width-expand">{{ form_widget(form.dateHeureDebut) }}</div>
+</div>
+<div uk-grid>
+    <div class="uk-width-auto uk-light uk-margin-top"><p>Durée :</p></div>
+    <div class="uk-width-expand">{{ form_widget(form.duree) }}</div>
+</div>
 
-    {{ form_widget(form.dateHeureDebut) }}
+<div uk-grid>
+    <div class="uk-width-auto uk-light uk-margin-top"><p>Date de fin d'enregistrement :</p></div>
+    <div class="uk-width-expand">{{ form_widget(form.dateLimiteInscription) }}</div>
 </div>
-    {{ form_widget(form.duree) }}
-<div>
-    <p>Date :</p>
-    {{ form_widget(form.dateLimiteInscription) }}
+{{ form_widget(form.nbInscriptionsMax) }}
+        {{ form_widget(form.infosSortie) }}
+        {{ form_widget(form.urlImage) }}
+<div uk-grid>
+    <div class="uk-width-auto uk-light uk-margin-top"><p>Campus :</p></div>
+    <div class="uk-width-expand">{{ form_widget(form.campus) }}</div>
+    <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_campus_new') }}"><button type="button" class="plus-button"></button></a></div>
 </div>
-    {{ form_widget(form.nbInscriptionsMax) }}
-    {{ form_widget(form.infosSortie) }}
-    {{ form_widget(form.urlImage) }}
-<div class="uk-flex">
-    {{ form_widget(form.campus) }}
-    <a href=""><button type="button" class="plus-button"></button></a>
-</div>
-<div class="uk-flex uk-flex-center">
-    {{ form_widget(form.lieu) }}
-    <a href=""><button type="button" class="plus-button uk-margin"></button></a>
+<div uk-grid>
+    <div class="uk-width-auto uk-light uk-margin-top"><p>Lieu :</p></div>
+    <div class="uk-width-expand">{{ form_widget(form.lieu) }}</div>
+    <div class="uk-width-auto uk-margin-top"><a href="{{ path('app_lieu_new') }}"><button type="button" class="plus-button"></button></a></div>
 </div>
 {{ form_widget(form.etat) }}
 <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>

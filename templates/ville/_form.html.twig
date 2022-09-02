@@ -1,4 +1,5 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
+    {{ form_widget(form.nom) }}
+    {{ form_widget(form.codePostal) }}
 <button class="glass-button uk-margin">{{ button_label|default('Save') }}</button>
 {{ form_end(form) }}

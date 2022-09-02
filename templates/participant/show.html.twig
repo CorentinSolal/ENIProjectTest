@@ -4,37 +4,65 @@
 
 {% block body %}
     <div class="container">
-        <h2 class="uk-card-title uk-margin-remove-bottom">Mon profil</h2>
+        <h1 class="uk-card-title">Mon profil</h1>
         <div class="uk-card-header">
-            <div class="uk-grid-small uk-flex-middle" uk-grid>
+            <div class="uk-grid-small uk-flex-middle uk-child-width-auto" uk-grid>
                 <div class="uk-width-auto">
                     <img class="pp" width="128" height="128" src="{{ asset(image) }}" >
                 </div>
+
                 <div class="uk-width-expand">
-                    <div class="uk-card-body uk-text-center">
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <p>Id : {{ participant.id }}</p>
-                        {% endif %}
-                        <p>Nom : {{ participant.nom }}</p>
-                        <p>Prenom : {{ participant.prenom }}</p>
-                        <p>eMail : {{ participant.mail }}</p>
-                        <p>Telephone : {{ participant.telephone }}</p>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <p>Administrateur : {{ participant.administrateur ? 'Yes' : 'No' }}</p>
-                            <p>Actif : {{ participant.actif ? 'Yes' : 'No' }}</p>
-                        {% endif %}
+                    <div class="uk-card-body ">
+                        <div>
+                            <div uk-grid>
+                                {% if is_granted('ROLE_ADMIN') %}
+                                    <p>Id : </p>
+                                    <p>{{ participant.id }}</p>
+                                {% endif %}
+                            </div>
+                            <div uk-grid>
+                                <p>Nom : </p>
+                                <p>{{ participant.nom }}</p>
+                            </div>
+                            <div uk-grid>
+                                <p>Prenom : </p>
+                                <p>{{ participant.prenom }}</p>
+                            </div>
+                            <div uk-grid>
+                                <p>eMail : </p>
+                                <p>{{ participant.mail }}</p>
+                            </div>
+                            <div uk-grid>
+                                <p>Téléphone : </p>
+                                <p>{{ participant.telephone }}</p>
+                            </div>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <div uk-grid>
+                                    <p>Administrateur : </p>
+                                    <p>{{ participant.administrateur ? 'Yes' : 'No' }}</p>
+                                </div>
+                                <div uk-grid>
+                                    <p>Actif : </p>
+                                    <p>{{ participant.actif ? 'Yes' : 'No' }}</p>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div class="">
-            {% if is_granted('ROLE_ADMIN') %}
-                <a href="{{ path('app_participant_index') }}" class="uk-button uk-button-text">back to list</a>
-            {% endif %}
-            <a href="{{ path('app_participant_edit', {'id': participant.id}) }}" class="uk-button uk-button-text">edit</a>
-
-            {{ include('participant/_delete_form.html.twig') }}
+        <div class="uk-child-width-1-3" uk-grid>
+            <div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('app_participant_index') }}"><button class="glass-button">Back to list</button></a>
+                {% endif %}
+            </div>
+            <div>
+                <a href="{{ path('app_participant_edit', {'id': participant.id}) }}"><button class="glass-button">Edit</button></a>
+            </div>
+            <div>
+                {{ include('participant/_delete_form.html.twig') }}
+            </div>
         </div>
     </div>
 
