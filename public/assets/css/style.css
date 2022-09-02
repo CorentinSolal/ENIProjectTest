@@ -38,6 +38,7 @@ html, body{
 }
 main{
     margin: 3rem;
+    min-height: 68vh;
 }
 .plus-button {
     border: 2px solid lightgrey;
@@ -165,7 +166,6 @@ a:hover {color:white}
 
 }
 .card__inner {
-
     width: 100%;
     height: 100%;
     transition: transform 1s;
